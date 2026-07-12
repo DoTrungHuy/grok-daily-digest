@@ -155,11 +155,11 @@ def _extract_list(data: Any) -> list[dict]:
 
 def fetch_user_tweets(cli: str, handle: str, max_n: int = 8) -> list[TweetItem]:
     handle = handle.lstrip("@")
-    # try several command shapes
+    # twitter-cli v current: user-posts
     candidates = [
+        [cli, "user-posts", handle, "--max", str(max_n), "--json"],
+        [cli, "user-posts", handle, "--json", "--max", str(max_n)],
         [cli, "user", handle, "--json", "--max", str(max_n)],
-        [cli, "user-tweets", handle, "--json", "-n", str(max_n)],
-        [cli, "timeline", handle, "--json", "--max", str(max_n)],
     ]
     last_err = None
     for cmd in candidates:
