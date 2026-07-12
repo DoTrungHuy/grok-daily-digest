@@ -37,12 +37,17 @@ from src.x_fetch import (  # noqa: E402
 
 
 def _build_site() -> Path:
+    module_name = "build_site"
     spec = importlib.util.spec_from_file_location(
-        "build_site", ROOT / "scripts" / "build_site.py"
+        module_name, ROOT / "scripts" / "build_site.py"
     )
     if not spec or not spec.loader:
         raise RuntimeError("cannot load scripts/build_site.py")
+
     mod = importlib.util.module_from_spec(spec)
+    # Python 3.12 dataclasses expects dynamically loaded modules to be present
+    # in sys.modules while class decorators are executed.
+    sys.modules[module_name] = mod
     spec.loader.exec_module(mod)
     return mod.build_site()
 

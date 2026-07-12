@@ -1,33 +1,62 @@
 name: Daily X Digest
 
-# 北京 08:00 = UTC 00:00
+# 北京/新加坡 08:17 = UTC 00:17
+# 避开 GitHub Actions 整点高峰，并支持手动触发验证
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "17 0 * * *"
   workflow_dispatch:
+    inputs:
+      deploy_pages:
+        description: "Deploy GitHub Pages from the selected branch. For non-main branches, the github-pages environment must allow this branch."
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: x-daily-digest-pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-commit:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+    steps:
+      - name: Show workflow context
+        run: |
+          echo "event=${GITHUB_EVENT_NAME}"
+          echo "ref=${GITHUB_REF}"
+          echo "ref_name=${GITHUB_REF_NAME}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
 
-      - name: Install
+      - name: Install dependencies
         run: |
-          pip install pyyaml
-          pip install twitter-cli || true
-          python -c "import shutil; print('twitter=', shutil.which('twitter'))"
+          python -m pip install -U pip
+          python -m pip install -r requirements.txt
+          python - <<'PY'
+          import shutil
+          print('twitter=', shutil.which('twitter'))
+          print('twitter-cli=', shutil.which('twitter-cli'))
+          PY
 
       - name: Run daily pipeline
         env:
+          TZ: Asia/Shanghai
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           TWITTER_AUTH_TOKEN: ${{ secrets.TWITTER_AUTH_TOKEN }}
           TWITTER_CT0: ${{ secrets.TWITTER_CT0 }}
@@ -39,15 +68,50 @@ jobs:
           test -n "$TWITTER_AUTH_TOKEN" || { echo "Need TWITTER_AUTH_TOKEN"; exit 1; }
           test -n "$TWITTER_CT0" || { echo "Need TWITTER_CT0"; exit 1; }
           python scripts/run_daily.py
+          test -f docs/index.html || { echo "docs/index.html was not generated"; exit 1; }
 
-      - name: Commit
+      - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add digests/ x_raw/ docs/index.html docs/style.css docs/[0-9]*.html || true
+
+          git add -A digests docs
+
           if git diff --staged --quiet; then
-            echo "No changes."
+            echo "No changes to commit."
           else
-            git commit -m "chore(digest): $(date -u +%Y-%m-%d)"
-            git push
+            git commit -m "chore(digest): $(TZ=Asia/Shanghai date +%Y-%m-%d)"
+            git push origin "HEAD:${{ github.ref_name }}"
           fi
+
+  deploy-pages:
+    needs: build-and-commit
+    runs-on: ubuntu-latest
+    if: >-
+      ${{
+        github.event_name == 'schedule' ||
+        github.ref_name == 'main' ||
+        github.event.inputs.deploy_pages == 'true'
+      }}
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout generated files
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
