@@ -1,2 +1,2 @@
 pyyaml>=6.0
-# X fetch (Agent-Reach stack): pip install twitter-cli
+twitter-cli
