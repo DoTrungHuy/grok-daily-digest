@@ -7,7 +7,6 @@
 
 **免费读 X（Cookie / twitter-cli）→ DeepSeek 完整精读 → GitHub Pages 日更。**
 
-> 电脑可关机 · 不付 X 官方 API · Grok Tasks 已弃用
 
 ---
 
@@ -30,13 +29,13 @@
 
 ```text
 X Cookie 抓取  →  DeepSeek 策展  →  digests/*.md  →  docs 静态站  →  Pages 上线
-   twitter-cli         完整精读           每日归档          liquid-glass UI      自动日更
+   twitter-cli         完整精读           每日归档          自动日更
 ```
 
 - **免费读 X**：用浏览器 Cookie + `twitter-cli`，不用付费 X API  
 - **完整正文**：DeepSeek 输出 HOOK / META / ITEM / CLOSE 结构化精读  
 - **自动发布**：GitHub Actions 每天北京时间约 **08:00** 跑一遍并更新站点  
-- **阅读站**：暗黑液态玻璃 UI（适配 digest 卡片结构）
+- **阅读站**：暗黑适合阅读式 UI（适配 digest 卡片结构）
 
 ---
 
