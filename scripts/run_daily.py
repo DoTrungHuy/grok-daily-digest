@@ -67,7 +67,12 @@ def main() -> int:
     parser.add_argument(
         "--headed",
         action="store_true",
-        help="Show browser window when fetching chat (debug)",
+        help="Show browser when fetching chat (more reliable vs Cloudflare)",
+    )
+    parser.add_argument(
+        "--headless",
+        action="store_true",
+        help="Force headless chat fetch (may hit Cloudflare)",
     )
     parser.add_argument(
         "--auth-state",
@@ -98,12 +103,13 @@ def main() -> int:
         print("没有找到匹配的邮件。")
         return 2
 
-    print("=== 匹配到邮件 ===")
+    print("=== 匹配到 Tasks 邮件（将只抓该邮件绑定的对话）===")
     print(f"From   : {message.get('from')}")
     print(f"Subject: {message.get('subject')}")
     print(f"Date   : {message.get('date')}")
     print(f"Id     : {message.get('id')}")
-    print(f"Chat   : {message.get('chat_url') or '(未在邮件中找到 grok.com/chat 链接)'}")
+    print(f"Chat   : {message.get('chat_url') or '(无 chat 链接 — 不是 digest 邮件)'}")
+    print("说明: 每天 gork-daily 会生成新的 chat id，不会复用昨天的链接。")
 
     preview = message.get("email_preview") or message.get("body") or ""
     print("--- email preview ---")
@@ -120,11 +126,18 @@ def main() -> int:
                 file=sys.stderr,
             )
         else:
+            # Default headed=False in fetcher means show browser (more reliable).
+            # --headless forces headless; --headed forces visible.
+            use_headless = False
+            if args.headless:
+                use_headless = True
+            if args.headed:
+                use_headless = False
             print("\nFetching full chat via Playwright (logged-in)...")
             message = enrich_message_with_full_chat(
                 message,
                 auth_path=args.auth_state,
-                headless=not args.headed,
+                headless=use_headless,
             )
             src = message.get("content_source")
             print(f"Content source: {src}")

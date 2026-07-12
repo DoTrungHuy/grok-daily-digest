@@ -19,8 +19,12 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 DEFAULT_CLIENT_SECRET = "grok_client_secret.json"
 DEFAULT_TOKEN = "token.json"
 
-# Search query for Grok Tasks digests (verified: Grok <noreply@x.ai>)
-DEFAULT_QUERY = "from:x.ai newer_than:7d"
+# Grok Tasks digests only. Each daily run creates a NEW chat URL in that email.
+# Never hardcode conversation ids; always parse Continue reading from THIS mail.
+DEFAULT_QUERY = (
+    'from:noreply@x.ai newer_than:14d -subject:"New login" -subject:security '
+    '-subject:accessed -subject:password -subject:"xAI account"'
+)
 
 
 def project_root() -> Path:
@@ -107,18 +111,19 @@ def extract_html_from_payload(payload: dict[str, Any]) -> str:
 
 
 def extract_grok_chat_url(html_or_text: str) -> Optional[str]:
-    """Extract first https://grok.com/chat/<uuid> link (Continue reading target)."""
+    """Extract Grok conversation link (Continue reading): /chat/uuid or /c/uuid."""
     import re
 
     if not html_or_text:
         return None
-    # prefer chat URLs; strip tracking junk after uuid
+    # /chat/uuid or /c/uuid (Grok may rewrite paths)
     m = re.search(
-        r"https://grok\.com/chat/([0-9a-fA-F-]{20,})",
+        r"https://grok\.com/(?:chat|c)/([0-9a-fA-F-]{20,})",
         html_or_text,
     )
     if not m:
         return None
+    # normalize to /chat/ form used in emails
     return f"https://grok.com/chat/{m.group(1)}"
 
 
@@ -206,26 +211,46 @@ def fetch_latest_message(
     result = (
         service.users()
         .messages()
-        .list(userId="me", q=query, maxResults=max_results)
+        .list(userId="me", q=query, maxResults=max(max_results, 15))
         .execute()
     )
     messages = result.get("messages") or []
     if not messages:
         return None
 
-    msg_id = messages[0]["id"]
-    message = (
-        service.users()
-        .messages()
-        .get(userId="me", id=msg_id, format="full")
-        .execute()
-    )
+    # ONLY accept Grok Tasks digests: must have Continue-reading chat link.
+    # Never fall back to security mails or random x.ai notifications.
+    chosen = None
+    for meta in messages:
+        mid = meta["id"]
+        message = (
+            service.users()
+            .messages()
+            .get(userId="me", id=mid, format="full")
+            .execute()
+        )
+        payload = message.get("payload") or {}
+        headers = _header_map(payload.get("headers") or [])
+        html = extract_html_from_payload(payload)
+        body = extract_text_from_payload(payload)
+        chat_url = extract_grok_chat_url(html) or extract_grok_chat_url(body)
+        subject = headers.get("subject", "")
+        from_h = headers.get("from", "")
+        if re_search_security(subject, body):
+            continue
+        if not chat_url:
+            continue
+        # Prefer "Grok <noreply@x.ai>" style Task mails
+        if "grok" not in from_h.lower() and "grok" not in subject.lower():
+            # still allow if chat link present (Tasks always has it)
+            pass
+        chosen = (mid, message, payload, headers, html, body, chat_url)
+        break
 
-    payload = message.get("payload") or {}
-    headers = _header_map(payload.get("headers") or [])
-    html = extract_html_from_payload(payload)
-    body = extract_text_from_payload(payload)
-    chat_url = extract_grok_chat_url(html) or extract_grok_chat_url(body)
+    if not chosen:
+        return None
+
+    msg_id, message, payload, headers, html, body, chat_url = chosen
 
     date_raw = headers.get("date", "")
     date_iso = ""
@@ -250,6 +275,19 @@ def fetch_latest_message(
         "query": query,
         "content_source": "email_preview",
     }
+
+
+def re_search_security(subject: str, body: str) -> bool:
+    text = f"{subject}\n{body}".lower()
+    keys = (
+        "new login",
+        "new ip",
+        "accessed from",
+        "suspicious activity",
+        "change your password",
+        "two-factor",
+    )
+    return any(k in text for k in keys)
 
 
 def env_query() -> str:

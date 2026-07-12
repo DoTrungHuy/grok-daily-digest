@@ -5,6 +5,22 @@
 Grok Tasks 邮件只有预览 + **Continue reading** → `https://grok.com/chat/<id>`。  
 全文在 **登录后的** chat 页里，邮箱 API 拿不到。
 
+## 重要：每天都是新对话
+
+| 事实 | 含义 |
+|------|------|
+| 每次 `gork-daily` 运行 | Grok **新建**一个 chat（新的 uuid） |
+| 邮件里的 Continue reading | 只对应 **这一次** 运行的对话 |
+| 昨天的 chat 链接 | **不能**用来取今天的全文 |
+
+脚本逻辑：
+
+1. 找**最新一封带 `grok.com/chat|c/<uuid>` 的 Tasks 邮件**（跳过登录通知等）  
+2. **只打开该邮件里的链接**  
+3. 校验：页面 URL 中的 uuid 与邮件一致；内容需含 digest 结构  
+
+登录时打开的 chat 只用于验证账号能读对话；**日常抓取永远以当天邮件链接为准**。
+
 ## 一次性配置
 
 ```powershell
