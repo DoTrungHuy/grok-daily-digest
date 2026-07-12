@@ -77,6 +77,51 @@ def _decode_body_data(data: str) -> str:
     return base64.urlsafe_b64decode(data.encode("utf-8")).decode("utf-8", errors="replace")
 
 
+def extract_html_from_payload(payload: dict[str, Any]) -> str:
+    """Return concatenated text/html parts from a Gmail message payload."""
+    if not payload:
+        return ""
+
+    html_parts: list[str] = []
+
+    def walk(part: dict[str, Any]) -> None:
+        p_mime = part.get("mimeType", "")
+        p_body = part.get("body") or {}
+        p_data = p_body.get("data")
+        if p_mime == "text/html" and p_data:
+            html_parts.append(_decode_body_data(p_data))
+        for child in part.get("parts") or []:
+            walk(child)
+
+    walk(payload)
+
+    if html_parts:
+        return "\n".join(html_parts)
+
+    # single-part html message
+    mime = payload.get("mimeType", "")
+    data = (payload.get("body") or {}).get("data")
+    if mime == "text/html" and data:
+        return _decode_body_data(data)
+    return ""
+
+
+def extract_grok_chat_url(html_or_text: str) -> Optional[str]:
+    """Extract first https://grok.com/chat/<uuid> link (Continue reading target)."""
+    import re
+
+    if not html_or_text:
+        return None
+    # prefer chat URLs; strip tracking junk after uuid
+    m = re.search(
+        r"https://grok\.com/chat/([0-9a-fA-F-]{20,})",
+        html_or_text,
+    )
+    if not m:
+        return None
+    return f"https://grok.com/chat/{m.group(1)}"
+
+
 def extract_text_from_payload(payload: dict[str, Any]) -> str:
     """Prefer text/plain; fall back to text/html; walk multipart trees."""
     if not payload:
@@ -176,8 +221,11 @@ def fetch_latest_message(
         .execute()
     )
 
-    headers = _header_map((message.get("payload") or {}).get("headers") or [])
-    body = extract_text_from_payload(message.get("payload") or {})
+    payload = message.get("payload") or {}
+    headers = _header_map(payload.get("headers") or [])
+    html = extract_html_from_payload(payload)
+    body = extract_text_from_payload(payload)
+    chat_url = extract_grok_chat_url(html) or extract_grok_chat_url(body)
 
     date_raw = headers.get("date", "")
     date_iso = ""
@@ -196,7 +244,11 @@ def fetch_latest_message(
         "date_iso": date_iso,
         "snippet": message.get("snippet", ""),
         "body": body,
+        "email_preview": body,
+        "html": html,
+        "chat_url": chat_url,
         "query": query,
+        "content_source": "email_preview",
     }
 
 

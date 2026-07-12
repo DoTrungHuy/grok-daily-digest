@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-Stage 1 entrypoint: authorize (first run) → fetch latest Grok Tasks email → write digests/YYYY-MM-DD.md
+Daily pipeline:
+  1) Gmail OAuth → latest Grok Tasks email (preview only by design)
+  2) Extract https://grok.com/chat/<id> from email HTML
+  3) Playwright + saved login → full chat text
+  4) Write digests/YYYY-MM-DD.md
 
-Usage (from project root, Python 3.10+ recommended):
-  py -3.13 -m pip install -r requirements.txt
-  py -3.13 scripts/run_daily.py
-
-First run opens a browser for Google OAuth (need network access to Google).
+Setup once:
+  pip install -r requirements.txt
+  playwright install chromium
+  python scripts/grok_login.py          # browser login, save grok_auth.json
+  python scripts/run_daily.py --force
 """
 
 from __future__ import annotations
@@ -15,7 +19,6 @@ import argparse
 import sys
 from pathlib import Path
 
-# Allow running as `python scripts/run_daily.py` without installing package
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -27,44 +30,53 @@ from src.gmail_client import (  # noqa: E402
     fetch_latest_message,
     get_gmail_service,
 )
+from src.grok_chat_fetcher import (  # noqa: E402
+    DEFAULT_AUTH_STATE,
+    auth_state_exists,
+    enrich_message_with_full_chat,
+)
 from src.write_digest import write_digest  # noqa: E402
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Fetch latest Grok Tasks email and archive as digest")
-    parser.add_argument(
-        "--client-secret",
-        default=DEFAULT_CLIENT_SECRET,
-        help=f"OAuth client secret JSON (default: {DEFAULT_CLIENT_SECRET})",
+    parser = argparse.ArgumentParser(
+        description="Fetch Grok Tasks email + optional full chat, archive digest"
     )
+    parser.add_argument("--client-secret", default=DEFAULT_CLIENT_SECRET)
+    parser.add_argument("--token", default=DEFAULT_TOKEN)
+    parser.add_argument("--query", default=None)
+    parser.add_argument("--print-only", action="store_true")
+    parser.add_argument("--preview-chars", type=int, default=2000)
+    parser.add_argument("--force", action="store_true")
     parser.add_argument(
-        "--token",
-        default=DEFAULT_TOKEN,
-        help=f"Token cache path (default: {DEFAULT_TOKEN})",
-    )
-    parser.add_argument(
-        "--query",
-        default=None,
-        help="Gmail search query (default: env GMAIL_QUERY or built-in Grok-oriented query)",
-    )
-    parser.add_argument(
-        "--print-only",
+        "--skip-full-chat",
         action="store_true",
-        help="Print body to stdout only; do not write digests/",
+        help="Only use email preview (no Playwright)",
     )
     parser.add_argument(
-        "--preview-chars",
-        type=int,
-        default=2000,
-        help="How many body chars to print (default 2000)",
-    )
-    parser.add_argument(
-        "--force",
+        "--full-chat",
         action="store_true",
-        help="Overwrite digest even if same Gmail message id already archived",
+        default=True,
+        help="Fetch full text from grok.com/chat (default: on)",
+    )
+    parser.add_argument(
+        "--no-full-chat",
+        action="store_true",
+        help="Alias of --skip-full-chat",
+    )
+    parser.add_argument(
+        "--headed",
+        action="store_true",
+        help="Show browser window when fetching chat (debug)",
+    )
+    parser.add_argument(
+        "--auth-state",
+        default=DEFAULT_AUTH_STATE,
+        help=f"Playwright storage state path (default: {DEFAULT_AUTH_STATE})",
     )
     args = parser.parse_args()
 
+    want_full = not (args.skip_full_chat or args.no_full_chat)
     query = args.query if args.query is not None else env_query()
 
     print("Connecting to Gmail API (readonly)...")
@@ -78,17 +90,12 @@ def main() -> int:
         return 1
     except Exception as e:
         print(f"Authorization / connection failed: {e}", file=sys.stderr)
-        print(
-            "提示：首次授权需能打开 Google 的网络（部分网络环境需 VPN）。",
-            file=sys.stderr,
-        )
         return 1
 
     print(f"Searching mail with query: {query!r}")
     message = fetch_latest_message(service, query=query)
     if not message:
         print("没有找到匹配的邮件。")
-        print("请确认：1) Grok Tasks 已发到此 Gmail  2) 用 --query 调整搜索条件")
         return 2
 
     print("=== 匹配到邮件 ===")
@@ -96,24 +103,54 @@ def main() -> int:
     print(f"Subject: {message.get('subject')}")
     print(f"Date   : {message.get('date')}")
     print(f"Id     : {message.get('id')}")
-    body = message.get("body") or ""
-    preview = body[: args.preview_chars]
-    print("--- body preview ---")
-    print(preview)
-    if len(body) > args.preview_chars:
-        print(f"... ({len(body) - args.preview_chars} more chars)")
+    print(f"Chat   : {message.get('chat_url') or '(未在邮件中找到 grok.com/chat 链接)'}")
+
+    preview = message.get("email_preview") or message.get("body") or ""
+    print("--- email preview ---")
+    print(preview[: args.preview_chars])
+    if len(preview) > args.preview_chars:
+        print(f"... ({len(preview) - args.preview_chars} more chars)")
+
+    if want_full:
+        if not auth_state_exists(args.auth_state):
+            print(
+                f"\n[!] 未找到 Grok 登录态 {args.auth_state}。\n"
+                f"    请先运行: python scripts/grok_login.py\n"
+                f"    本次将仅归档邮件预览。",
+                file=sys.stderr,
+            )
+        else:
+            print("\nFetching full chat via Playwright (logged-in)...")
+            message = enrich_message_with_full_chat(
+                message,
+                auth_path=args.auth_state,
+                headless=not args.headed,
+            )
+            src = message.get("content_source")
+            print(f"Content source: {src}")
+            if message.get("full_fetch_error"):
+                print(f"[!] Full fetch failed: {message['full_fetch_error']}", file=sys.stderr)
+            else:
+                full = message.get("body") or ""
+                print(f"Full text length: {len(full)} chars")
+                print("--- full text preview ---")
+                print(full[: args.preview_chars])
+                if len(full) > args.preview_chars:
+                    print(f"... ({len(full) - args.preview_chars} more chars)")
 
     if args.print_only:
-        return 0
+        return 0 if message.get("content_source") == "grok_chat_full" or not want_full else 3
 
     path, status = write_digest(message, force=args.force)
     if status == "skipped_same_id":
         print(f"\n已存在相同邮件 id，跳过写入: {path}")
+        print("如需用全文覆盖，请加: --force")
     elif status == "overwritten":
         print(f"\n已覆盖写入: {path}")
     else:
         print(f"\n已写入: {path}")
     print(f"原始备份: digests/raw/{path.stem}.json")
+    print(f"内容来源: {message.get('content_source')}")
     return 0
 
 

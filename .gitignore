@@ -3,6 +3,8 @@ grok_client_secret.json
 client_secret*.json
 token.json
 *.token.json
+grok_auth.json
+playwright/.auth/
 .env
 .env.*
 config/accounts.yaml

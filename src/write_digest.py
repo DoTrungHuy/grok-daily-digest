@@ -42,6 +42,7 @@ def render_markdown(message: dict[str, Any], date_slug: str, parsed: dict[str, A
     if not body:
         body = (message.get("snippet") or "").strip() or "（邮件正文为空，仅有 snippet/未解析到 text）"
 
+    source = message.get("content_source") or "email_preview"
     lines = [
         f"# Daily Digest — {date_slug}",
         "",
@@ -51,10 +52,13 @@ def render_markdown(message: dict[str, Any], date_slug: str, parsed: dict[str, A
         f"- **Email date**: {message.get('date', '')}",
         f"- **Gmail message id**: `{message.get('id', '')}`",
         f"- **Search query**: `{message.get('query', '')}`",
-        "",
-        "---",
-        "",
+        f"- **Content source**: `{source}`",
     ]
+    if message.get("chat_url"):
+        lines.append(f"- **Grok chat (full)**: {message['chat_url']}")
+    if message.get("full_fetch_error"):
+        lines.append(f"- **Full fetch error**: {message['full_fetch_error']}")
+    lines.extend(["", "---", ""])
 
     if parsed.get("structured"):
         if parsed.get("hook"):
@@ -78,11 +82,17 @@ def render_markdown(message: dict[str, Any], date_slug: str, parsed: dict[str, A
     else:
         lines.extend(["## Content", "", body, ""])
 
+    # Always keep email teaser when full chat was merged
+    preview = (message.get("email_preview") or "").strip()
+    if preview and source.startswith("grok_chat"):
+        lines.extend(["---", "", "## Email preview (truncated by Grok)", "", preview, ""])
+
     lines.extend(
         [
             "---",
             "",
-            "_Archived by grok-daily-digest (Gmail API readonly)._",
+            "_Archived by grok-daily-digest "
+            f"(source={source})._",
             "",
         ]
     )
@@ -123,6 +133,11 @@ def write_digest(
         "snippet": message.get("snippet"),
         "query": message.get("query"),
         "body": message.get("body"),
+        "email_preview": message.get("email_preview"),
+        "chat_url": message.get("chat_url"),
+        "content_source": message.get("content_source"),
+        "full_fetch_error": message.get("full_fetch_error"),
+        "chat_fetch": message.get("chat_fetch"),
         "parsed": parsed,
         "saved_at": datetime.now(timezone.utc).isoformat(),
     }

@@ -94,20 +94,36 @@ grok-daily-digest/
 └── PROJECT_PLAN.md
 ```
 
+## 全文抓取（方法 1：登录一次 → 之后全自动）
+
+Grok 邮件只有预览；完整正文在 `grok.com/chat/...`（需登录）。
+
+**你只需登录一次**（保存 cookie 到 `grok_auth.json`），之后脚本自动复用，无需每天登录：
+
+```powershell
+# 一次性
+C:\Python\Python312\python.exe -m pip install -r requirements.txt
+C:\Python\Python312\python.exe -m playwright install chromium
+C:\Python\Python312\python.exe scripts\grok_login.py
+# 浏览器打开 → 登录 grok.com → 终端按 Enter
+
+# 之后每天（或计划任务）全自动
+C:\Python\Python312\python.exe scripts\run_daily.py --force
+```
+
+- 登录态过期时（少见，几周～几个月）再跑一次 `grok_login.py` 即可  
+- 说明：[docs/FULL_CHAT_SETUP.md](./docs/FULL_CHAT_SETUP.md)
+
 ## 阶段进度
 
 | 阶段 | 状态 |
 |------|------|
-| 0 Prompt / Tasks 说明 | `prompts/daily_task_v1.md` 已就绪 |
-| 1 本机 Gmail API 读通 | **已通过**（`from:x.ai`，样例见 `digests/2026-07-11.md`） |
-| 2 GitHub Actions | Workflow 已写好；需你创建 Public 仓库并配置 Secrets（见 `docs/GITHUB_ACTIONS_SETUP.md`） |
-| 3 打磨 | 去重 / raw 备份 / 索引 / 账号示例已有 |
-| 4 Pages | 远期，见 `docs/GITHUB_PAGES.md` |
+| 管道：邮件预览 | ✅ |
+| 全文：登录态抓 chat | ⏳ 需本机执行一次 `grok_login.py` |
+| GitHub Actions（仅邮件） | ✅ 已配置 |
+| Pages 上线 | ❌ 未做 |
 
-## 下一步（阶段 2）
+## GitHub Actions
 
-1. 本机连续跑通后：创建 **Public** GitHub 仓库并 `git push`  
-2. 配置 Secrets：`GMAIL_CLIENT_SECRET_JSON`、`GMAIL_TOKEN_JSON`  
-3. Actions → **Daily Grok Digest** → Run workflow  
-
-详见 [docs/GITHUB_ACTIONS_SETUP.md](./docs/GITHUB_ACTIONS_SETUP.md)。
+当前 Actions **只归档邮件预览**（云端没有你的 Grok 登录 cookie）。  
+**完整正文**建议本机计划任务在 15:20 跑 `run_daily.py`（用已保存的 `grok_auth.json`）。
