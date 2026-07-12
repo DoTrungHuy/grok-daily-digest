@@ -14,7 +14,6 @@
 | 用途 | 链接 |
 |------|------|
 | 🌐 **网站首页** | **https://dotrunghuy.github.io/X-daily-digest/** |
-| 📅 最新示例日页 | https://dotrunghuy.github.io/X-daily-digest/2026-07-12.html |
 | 📦 源码仓库 | https://github.com/DoTrungHuy/X-daily-digest |
 | ⚙️ Actions 运行记录 | https://github.com/DoTrungHuy/X-daily-digest/actions |
 | 🔐 Secrets 配置页 | https://github.com/DoTrungHuy/X-daily-digest/settings/secrets/actions |
