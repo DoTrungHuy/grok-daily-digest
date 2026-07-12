@@ -4,252 +4,220 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content="每日 X 精读 — twitter-cli + DeepSeek 自动策展"/>
-  <meta name="theme-color" content="#05070b"/>
+  <meta name="theme-color" content="#0a0a0b"/>
   <title>Digest 2026-07-12 · X Daily Digest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css?v=20260712b"/>
-  <style>
-    /* critical: page never looks unstyled if external CSS is delayed */
-    html,body{margin:0;background:#05070b;color:#f4f7fb;font-family:Barlow,system-ui,sans-serif}
-    a{color:#9ec5ff;text-decoration:none}
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=20260712c"/>
 </head>
-<body class="page-digest">
-  <div class="bg-orbits" aria-hidden="true">
-    <div class="orb orb-a"></div>
-    <div class="orb orb-b"></div>
-    <div class="orb orb-c"></div>
-    <div class="grid-fade"></div>
-  </div>
-
-  <header class="nav-wrap">
-    <div class="nav-inner liquid-glass">
-      <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">X Daily Digest</span>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">X</span>
+        <span class="logo-text">Daily Digest</span>
       </a>
-      <nav class="nav-links" aria-label="主导航">
+      <nav class="topnav">
         <a class="" href="index.html">首页</a>
         <a href="https://github.com/DoTrungHuy/grok-daily-digest" target="_blank" rel="noopener">源码</a>
-        <a class="nav-cta" href="https://dotrunghuy.github.io/grok-daily-digest/" target="_blank" rel="noopener">
-          站点 <span class="cta-arrow" aria-hidden="true">↗</span>
-        </a>
       </nav>
+    </header>
+
+    <main class="main">
+
+<div class="digest-layout">
+  <div class="digest-main">
+    <div class="page-head">
+      <a class="back" href="index.html">← 返回列表</a>
+      <p class="eyebrow">Daily Digest · 2026-07-12</p>
+      <h1 class="page-title">今日精读</h1>
+      <p class="lede">今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir 爬虫框架、Docker 自动更新工具等均有新版本或介绍。</p>
+      <div class="meta-row"><span>过去约 24 小时</span><span>10 条</span><span>40 推文</span><span class="sig sig-strong">信号 强</span></div>
     </div>
-  </header>
 
-  <main class="page">
+    <div class="filters" role="toolbar"><button type="button" class="fbtn on" data-f="*">全部</button><button type="button" class="fbtn" data-f="大佬官方">大佬官方</button><button type="button" class="fbtn" data-f="工具更新">工具更新</button></div>
+    <div class="items">
+      
+<article class="item" id="item-1" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">01</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">OpenAI 全面推出 GPT-Live 并重置用量限制，承认发布存在混乱</h2>
+  <blockquote class="quote"><p>“GPT-Live is now fully rolled out to all ChatGPT users globally. We&#x27;re also doubling everyone&#x27;s voice usage limit for the whole weekend so you can try more of it.” 以及 “We made it too easy to use the highest-compute settings without making the impact on usage limits sufficiently clear. ... We’re resetting usage twice so people can keep experimenting.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对开发者而言，GPT-Live 的全面上线意味着语音交互能力已进入生产可用阶段；OpenAI 的坦诚复盘（用量显示不清、桌面端重组织、Codex 定位模糊）值得产品团队参考——大型发布后快速响应反馈并分阶段修复是标准做法。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075768216866205786" target="_blank" rel="noopener">原文1</a><a class="src" href="https://x.com/i/web/status/2075641131002700120" target="_blank" rel="noopener">原文2</a></span>
+  </div>
+</article>
 
-<section class="hero hero-digest">
-  <div class="hero-inner">
-    <a class="back-link reveal" href="index.html">← 返回列表</a>
-    <div class="hero-badges reveal">
-      <span class="section-badge">Daily Digest</span>
-      <span class="date-pill">2026-07-12</span>
-      <span class="sig-pill sig-strong">信号 强</span>
+
+<article class="item" id="item-2" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">02</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">GPT-5.6 Sol Ultra 一小时证明 50 年未解数学猜想</h2>
+  <blockquote class="quote"><p>“Yesterday, we made GPT-5.6 Sol Ultra generally available. Today, we&#x27;re sharing that it produced a proof of the 50-year-old Cycle Double Cover Conjecture using 64 subagents in just under one hour.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>这是 agent 系统在数学研究中的里程碑式应用——64 个子代理并行协作完成复杂推理。对 CS/agent 开发者而言，这展示了多代理编排（multi-agent orchestration）在长链条推理任务中的潜力，值得关注其 prompt 设计和子代理通信机制。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075643450196971805" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-3" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">03</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">Grok 4.5 在 SWE-Atlas-QnA 基准上追平 Codex GPT-5.6</h2>
+  <blockquote class="quote"><p>“Grok 4.5 with Grok Build has tied for the #1 spot on the SWE-Atlas-QnA benchmark, matching Codex GPT-5.6 with an impressive 84 score. Another strong milestone for xAI&#x27;s rapidly advancing coding capabilities.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>xAI 的编码能力已与 OpenAI 旗舰模型持平。对 agent 开发者来说，Grok 4.5 的“多仓库、数百技能、多种工具”设计（见 ITEM4）可能是其基准表现的关键，值得研究其工具调用架构。</p></div>
+  <div class="item-src">
+    <span class="handle">@elonmusk</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075643190334705885" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-4" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">04</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">Grok 4.5 被描述为“为真实工程构建”，擅长大型代码库</h2>
+  <blockquote class="quote"><p>“Grok 4.5 is built for real-world engineering. It excels in large codebases and handles long-running tasks that span multiple repositories, hundreds of skills, and a variety of tools.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>明确指出了 Grok 4.5 的定位——跨仓库、长任务、多工具。这与当前 agent 系统追求“持久化任务执行”和“工具编排”的趋势一致，可作为工程选型参考。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075192676597538995" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-5" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">05</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">GPT-5.6 在健康智能领域取得重大进步，Luna 版本成本降低 25 倍</h2>
+  <blockquote class="quote"><p>“GPT-5.6 is a major step forward for health intelligence. ... GPT-5.6 Luna outperforms GPT-5.5 at its highest reasoning setting while costing 25x less.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对工程团队而言，这暗示了模型推理效率的显著提升——更低的成本意味着可以在更多生产场景中部署高级推理能力，尤其是对延迟和成本敏感的 agent 系统。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075686461693898868" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-6" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">06</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">OpenAI 启动生物安全漏洞赏金计划，奖金提高至 5 万美元</h2>
+  <blockquote class="quote"><p>“We’re evolving our Bio Bug Bounty into an ongoing private program, known as the OpenAI Bio Bug Bounty program and doubling rewards to $50K. ... inviting researchers ... to try to find a universal jailbreak that can defeat our predefined biosafety challenge.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>AI 安全领域的重要信号——针对生物安全风险的漏洞奖励计划从一次性活动转为持续项目。对安全工程师和 agent 开发者而言，这意味着前沿模型的安全评估标准正在细化，尤其是针对“通用越狱”的防御。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075647722766614733" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-7" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">07</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">LangChain-Chatchat：完全离线的私有 RAG 流水线</h2>
+  <blockquote class="quote"><p>“LangChain-Chatchat lets you run a full RAG pipeline privately using open-source LLMs and local knowledge bases. ... Fully offline deployment with no external API dependencies.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对需要数据隐私的 agent 和 RAG 系统开发者来说，这是一个开箱即用的方案——支持 ChatGLM、Qwen2、Llama3，基于 LangChain + FastAPI + Streamlit，可快速搭建私有知识库问答系统。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076222537298743531" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-8" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">08</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">Crawly：Elixir 爬虫应用框架，支持数据挖掘与归档</h2>
+  <blockquote class="quote"><p>“Crawly is an Elixir application framework for building spiders to crawl websites and extract structured data. ... Includes middleware for domain filtering, unique requests, and user agent rotation.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对需要构建数据采集管道的开发者，Crawly 提供了 Elixir 生态下的完整爬虫框架，内置去重、UA 轮换、验证、JSON 输出等管道，适合与 agent 系统集成作为数据源。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076192342479188024" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-9" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">09</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">Watchtower：自动更新 Docker 容器的开源工具</h2>
+  <blockquote class="quote"><p>“Watchtower monitors your running Docker containers and automatically updates them when new images are pushed to your registry.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对运维和部署 agent 系统的团队来说，Watchtower 是一个轻量级方案，可自动保持容器镜像最新，减少手动更新带来的安全风险。适合 CI/CD 流程中作为补充。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076041344402042963" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-10" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">10</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">FrankenPHP：将 PHP 嵌入 Caddy 的应用服务器</h2>
+  <blockquote class="quote"><p>“FrankenPHP is an application server that embeds PHP directly into the Caddy web server, combining PHP execution with Caddy&#x27;s automatic HTTPS and HTTP/3 support.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 PHP 开发者而言，这是一个现代化的部署方案——无需单独配置 Nginx/Apache，直接利用 Caddy 的自动 HTTPS 和 HTTP/3，简化了生产环境配置。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076162140126507251" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
     </div>
-    <h1 class="hero-title reveal">今日精读</h1>
-    <p class="hero-lede reveal">今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir 爬虫框架、Docker 自动更新工具等均有新版本或介绍。</p>
-    <div class="meta-chips reveal"><span class="chip chip-window "><span class="chip-k">时间窗</span><span class="chip-v">过去约 24 小时</span></span><span class="chip chip-count "><span class="chip-k">条目数</span><span class="chip-v">10</span></span><span class="chip chip-priority "><span class="chip-k">来自关注账号优先</span><span class="chip-v">是，优先了 @elonmusk 和 @OpenAI 的推文</span></span><span class="chip chip-signal sig-strong"><span class="chip-k">信号强度</span><span class="chip-v">强</span></span><span class="chip chip-tweets"><span class="chip-k">推文</span><span class="chip-v">40</span></span></div>
-    <div class="hero-stats reveal">
-      <div class="stat-card liquid-glass"><span class="stat-n">10</span><span class="stat-l">条目</span></div>
-      <div class="stat-card liquid-glass"><span class="stat-n">40</span><span class="stat-l">推文素材</span></div>
-      <div class="stat-card liquid-glass"><span class="stat-n">AI</span><span class="stat-l">DeepSeek 策展</span></div>
-    </div>
-  </div>
-</section>
-
-
-<nav class="toc liquid-glass reveal" aria-label="本篇目录">
-  <div class="toc-head">
-    <span class="section-badge">目录</span>
-    <p class="toc-hint">跳转到条目</p>
-  </div>
-  <ol class="toc-list"><li><a href="#item-1"><span class="toc-n">01</span><span class="toc-t">OpenAI 全面推出 GPT-Live 并重置用量限制，承认发布存在混乱</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-2"><span class="toc-n">02</span><span class="toc-t">GPT-5.6 Sol Ultra 一小时证明 50 年未解数学猜想</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-3"><span class="toc-n">03</span><span class="toc-t">Grok 4.5 在 SWE-Atlas-QnA 基准上追平 Codex GPT-5.6</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-4"><span class="toc-n">04</span><span class="toc-t">Grok 4.5 被描述为“为真实工程构建”，擅长大型代码库</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-5"><span class="toc-n">05</span><span class="toc-t">GPT-5.6 在健康智能领域取得重大进步，Luna 版本成本降低 25 倍</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-6"><span class="toc-n">06</span><span class="toc-t">OpenAI 启动生物安全漏洞赏金计划，奖金提高至 5 万美元</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-7"><span class="toc-n">07</span><span class="toc-t">LangChain-Chatchat：完全离线的私有 RAG 流水线</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-8"><span class="toc-n">08</span><span class="toc-t">Crawly：Elixir 爬虫应用框架，支持数据挖掘与归档</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-9"><span class="toc-n">09</span><span class="toc-t">Watchtower：自动更新 Docker 容器的开源工具</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-10"><span class="toc-n">10</span><span class="toc-t">FrankenPHP：将 PHP 嵌入 Caddy 的应用服务器</span><span class="toc-c cat-tool">工具更新</span></a></li></ol>
-</nav>
-
-<div class="filter-bar reveal" role="toolbar" aria-label="按类别筛选"><button type="button" class="filter-btn is-on" data-filter="*">全部</button><button type="button" class="filter-btn" data-filter="大佬官方">大佬官方</button><button type="button" class="filter-btn" data-filter="工具更新">工具更新</button></div>
-
-<section class="items-grid" id="items">
-  
-<article class="item-card liquid-glass reveal" id="item-1" data-category="大佬官方">
-  <div class="item-head">
-    <span class="item-num">ITEM 01</span>
-    <span class="cat-badge cat-official">大佬官方</span>
-  </div>
-  <h3 class="item-title">OpenAI 全面推出 GPT-Live 并重置用量限制，承认发布存在混乱</h3>
-  <blockquote class="item-quote"><p>“GPT-Live is now fully rolled out to all ChatGPT users globally. We&#x27;re also doubling everyone&#x27;s voice usage limit for the whole weekend so you can try more of it.” 以及 “We made it too easy to use the highest-compute settings without making the impact on usage limits sufficiently clear. ... We’re resetting usage twice so people can keep experimenting.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>对开发者而言，GPT-Live 的全面上线意味着语音交互能力已进入生产可用阶段；OpenAI 的坦诚复盘（用量显示不清、桌面端重组织、Codex 定位模糊）值得产品团队参考——大型发布后快速响应反馈并分阶段修复是标准做法。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@OpenAI</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2075768216866205786" target="_blank" rel="noopener">原文 1</a><a class="src-link" href="https://x.com/i/web/status/2075641131002700120" target="_blank" rel="noopener">原文 2</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-2" data-category="大佬官方">
-  <div class="item-head">
-    <span class="item-num">ITEM 02</span>
-    <span class="cat-badge cat-official">大佬官方</span>
-  </div>
-  <h3 class="item-title">GPT-5.6 Sol Ultra 一小时证明 50 年未解数学猜想</h3>
-  <blockquote class="item-quote"><p>“Yesterday, we made GPT-5.6 Sol Ultra generally available. Today, we&#x27;re sharing that it produced a proof of the 50-year-old Cycle Double Cover Conjecture using 64 subagents in just under one hour.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>这是 agent 系统在数学研究中的里程碑式应用——64 个子代理并行协作完成复杂推理。对 CS/agent 开发者而言，这展示了多代理编排（multi-agent orchestration）在长链条推理任务中的潜力，值得关注其 prompt 设计和子代理通信机制。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@OpenAI</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2075643450196971805" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-3" data-category="大佬官方">
-  <div class="item-head">
-    <span class="item-num">ITEM 03</span>
-    <span class="cat-badge cat-official">大佬官方</span>
-  </div>
-  <h3 class="item-title">Grok 4.5 在 SWE-Atlas-QnA 基准上追平 Codex GPT-5.6</h3>
-  <blockquote class="item-quote"><p>“Grok 4.5 with Grok Build has tied for the #1 spot on the SWE-Atlas-QnA benchmark, matching Codex GPT-5.6 with an impressive 84 score. Another strong milestone for xAI&#x27;s rapidly advancing coding capabilities.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>xAI 的编码能力已与 OpenAI 旗舰模型持平。对 agent 开发者来说，Grok 4.5 的“多仓库、数百技能、多种工具”设计（见 ITEM4）可能是其基准表现的关键，值得研究其工具调用架构。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@elonmusk</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2075643190334705885" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-4" data-category="大佬官方">
-  <div class="item-head">
-    <span class="item-num">ITEM 04</span>
-    <span class="cat-badge cat-official">大佬官方</span>
-  </div>
-  <h3 class="item-title">Grok 4.5 被描述为“为真实工程构建”，擅长大型代码库</h3>
-  <blockquote class="item-quote"><p>“Grok 4.5 is built for real-world engineering. It excels in large codebases and handles long-running tasks that span multiple repositories, hundreds of skills, and a variety of tools.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>明确指出了 Grok 4.5 的定位——跨仓库、长任务、多工具。这与当前 agent 系统追求“持久化任务执行”和“工具编排”的趋势一致，可作为工程选型参考。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@unknown</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2075192676597538995" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-5" data-category="大佬官方">
-  <div class="item-head">
-    <span class="item-num">ITEM 05</span>
-    <span class="cat-badge cat-official">大佬官方</span>
-  </div>
-  <h3 class="item-title">GPT-5.6 在健康智能领域取得重大进步，Luna 版本成本降低 25 倍</h3>
-  <blockquote class="item-quote"><p>“GPT-5.6 is a major step forward for health intelligence. ... GPT-5.6 Luna outperforms GPT-5.5 at its highest reasoning setting while costing 25x less.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>对工程团队而言，这暗示了模型推理效率的显著提升——更低的成本意味着可以在更多生产场景中部署高级推理能力，尤其是对延迟和成本敏感的 agent 系统。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@OpenAI</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2075686461693898868" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-6" data-category="大佬官方">
-  <div class="item-head">
-    <span class="item-num">ITEM 06</span>
-    <span class="cat-badge cat-official">大佬官方</span>
-  </div>
-  <h3 class="item-title">OpenAI 启动生物安全漏洞赏金计划，奖金提高至 5 万美元</h3>
-  <blockquote class="item-quote"><p>“We’re evolving our Bio Bug Bounty into an ongoing private program, known as the OpenAI Bio Bug Bounty program and doubling rewards to $50K. ... inviting researchers ... to try to find a universal jailbreak that can defeat our predefined biosafety challenge.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>AI 安全领域的重要信号——针对生物安全风险的漏洞奖励计划从一次性活动转为持续项目。对安全工程师和 agent 开发者而言，这意味着前沿模型的安全评估标准正在细化，尤其是针对“通用越狱”的防御。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@OpenAI</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2075647722766614733" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-7" data-category="工具更新">
-  <div class="item-head">
-    <span class="item-num">ITEM 07</span>
-    <span class="cat-badge cat-tool">工具更新</span>
-  </div>
-  <h3 class="item-title">LangChain-Chatchat：完全离线的私有 RAG 流水线</h3>
-  <blockquote class="item-quote"><p>“LangChain-Chatchat lets you run a full RAG pipeline privately using open-source LLMs and local knowledge bases. ... Fully offline deployment with no external API dependencies.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>对需要数据隐私的 agent 和 RAG 系统开发者来说，这是一个开箱即用的方案——支持 ChatGLM、Qwen2、Llama3，基于 LangChain + FastAPI + Streamlit，可快速搭建私有知识库问答系统。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@unknown</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2076222537298743531" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-8" data-category="工具更新">
-  <div class="item-head">
-    <span class="item-num">ITEM 08</span>
-    <span class="cat-badge cat-tool">工具更新</span>
-  </div>
-  <h3 class="item-title">Crawly：Elixir 爬虫应用框架，支持数据挖掘与归档</h3>
-  <blockquote class="item-quote"><p>“Crawly is an Elixir application framework for building spiders to crawl websites and extract structured data. ... Includes middleware for domain filtering, unique requests, and user agent rotation.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>对需要构建数据采集管道的开发者，Crawly 提供了 Elixir 生态下的完整爬虫框架，内置去重、UA 轮换、验证、JSON 输出等管道，适合与 agent 系统集成作为数据源。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@unknown</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2076192342479188024" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-9" data-category="工具更新">
-  <div class="item-head">
-    <span class="item-num">ITEM 09</span>
-    <span class="cat-badge cat-tool">工具更新</span>
-  </div>
-  <h3 class="item-title">Watchtower：自动更新 Docker 容器的开源工具</h3>
-  <blockquote class="item-quote"><p>“Watchtower monitors your running Docker containers and automatically updates them when new images are pushed to your registry.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>对运维和部署 agent 系统的团队来说，Watchtower 是一个轻量级方案，可自动保持容器镜像最新，减少手动更新带来的安全风险。适合 CI/CD 流程中作为补充。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@unknown</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2076041344402042963" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-
-<article class="item-card liquid-glass reveal" id="item-10" data-category="工具更新">
-  <div class="item-head">
-    <span class="item-num">ITEM 10</span>
-    <span class="cat-badge cat-tool">工具更新</span>
-  </div>
-  <h3 class="item-title">FrankenPHP：将 PHP 嵌入 Caddy 的应用服务器</h3>
-  <blockquote class="item-quote"><p>“FrankenPHP is an application server that embeds PHP directly into the Caddy web server, combining PHP execution with Caddy&#x27;s automatic HTTPS and HTTP/3 support.”</p></blockquote>
-  <div class="item-takeaway"><span class="take-label">实用点</span><p>对 PHP 开发者而言，这是一个现代化的部署方案——无需单独配置 Nginx/Apache，直接利用 Caddy 的自动 HTTPS 和 HTTP/3，简化了生产环境配置。</p></div>
-  <div class="item-foot">
-    <div class="item-handles"><span class="handle">@unknown</span></div>
-    <div class="item-links"><a class="src-link" href="https://x.com/i/web/status/2076162140126507251" target="_blank" rel="noopener">原文 1</a></div>
-  </div>
-</article>
-
-</section>
-
-
-<section class="close-section reveal">
-  <div class="close-card liquid-glass-strong">
-    <span class="section-badge">今日只看一条</span>
-    <p class="close-text">今天若只点开一条，点 OpenAI 关于 GPT-Live 全面上线和发布后修复计划的官方声明（ITEM1），它同时展示了产品发布的最佳实践和 agent 系统的最新能力边界。
+    
+<aside class="close-box">
+  <p class="close-k">今日只看一条</p>
+  <p class="close-v">今天若只点开一条，点 OpenAI 关于 GPT-Live 全面上线和发布后修复计划的官方声明（ITEM1），它同时展示了产品发布的最佳实践和 agent 系统的最新能力边界。
 
 ---
 
 _Source: X via free cookie CLI + DeepSeek. Hosted on GitHub Pages._</p>
+</aside>
+
   </div>
-</section>
 
+  <aside class="toc-side" aria-label="目录">
+    <p class="toc-label">本篇目录</p>
+    <nav class="toc"><a href="#item-1" class="toc-a"><span class="toc-i">01</span><span class="toc-t">OpenAI 全面推出 GPT-Live 并重置用量限制，承认发布存在混乱</span></a><a href="#item-2" class="toc-a"><span class="toc-i">02</span><span class="toc-t">GPT-5.6 Sol Ultra 一小时证明 50 年未解数学猜想</span></a><a href="#item-3" class="toc-a"><span class="toc-i">03</span><span class="toc-t">Grok 4.5 在 SWE-Atlas-QnA 基准上追平 Codex GPT-5.6</span></a><a href="#item-4" class="toc-a"><span class="toc-i">04</span><span class="toc-t">Grok 4.5 被描述为“为真实工程构建”，擅长大型代码库</span></a><a href="#item-5" class="toc-a"><span class="toc-i">05</span><span class="toc-t">GPT-5.6 在健康智能领域取得重大进步，Luna 版本成本降低 25 倍</span></a><a href="#item-6" class="toc-a"><span class="toc-i">06</span><span class="toc-t">OpenAI 启动生物安全漏洞赏金计划，奖金提高至 5 万美元</span></a><a href="#item-7" class="toc-a"><span class="toc-i">07</span><span class="toc-t">LangChain-Chatchat：完全离线的私有 RAG 流水线</span></a><a href="#item-8" class="toc-a"><span class="toc-i">08</span><span class="toc-t">Crawly：Elixir 爬虫应用框架，支持数据挖掘与归档</span></a><a href="#item-9" class="toc-a"><span class="toc-i">09</span><span class="toc-t">Watchtower：自动更新 Docker 容器的开源工具</span></a><a href="#item-10" class="toc-a"><span class="toc-i">10</span><span class="toc-t">FrankenPHP：将 PHP 嵌入 Caddy 的应用服务器</span></a></nav>
+  </aside>
+</div>
 
-  </main>
+    </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner liquid-glass">
-      <div class="footer-row">
-        <p class="footer-copy">© 2026 X Daily Digest · Cookie → DeepSeek → Pages</p>
-        <p class="footer-gen">built 2026-07-12 08:49 UTC</p>
-      </div>
-      <p class="footer-note">不使用付费 X API · <a href="https://dotrunghuy.github.io/grok-daily-digest/">线上站点</a> · <a href="https://github.com/DoTrungHuy/grok-daily-digest">GitHub</a></p>
-    </div>
-  </footer>
-
-  <script src="app.js?v=20260712b" defer></script>
+    <footer class="foot">
+      <p>Cookie → DeepSeek → Pages · built 2026-07-12 08:53 UTC</p>
+      <p class="foot-links">
+        <a href="https://dotrunghuy.github.io/grok-daily-digest/">站点</a>
+        <span>·</span>
+        <a href="https://github.com/DoTrungHuy/grok-daily-digest">GitHub</a>
+      </p>
+    </footer>
+  </div>
+  <script src="app.js?v=20260712c" defer></script>
 </body>
 </html>

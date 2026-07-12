@@ -4,132 +4,110 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content="每日 X 精读 — twitter-cli + DeepSeek 自动策展"/>
-  <meta name="theme-color" content="#05070b"/>
+  <meta name="theme-color" content="#0a0a0b"/>
   <title>X Daily Digest · 每日 X 精读</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css?v=20260712b"/>
-  <style>
-    /* critical: page never looks unstyled if external CSS is delayed */
-    html,body{margin:0;background:#05070b;color:#f4f7fb;font-family:Barlow,system-ui,sans-serif}
-    a{color:#9ec5ff;text-decoration:none}
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=20260712c"/>
 </head>
-<body class="page-home">
-  <div class="bg-orbits" aria-hidden="true">
-    <div class="orb orb-a"></div>
-    <div class="orb orb-b"></div>
-    <div class="orb orb-c"></div>
-    <div class="grid-fade"></div>
-  </div>
-
-  <header class="nav-wrap">
-    <div class="nav-inner liquid-glass">
-      <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">X Daily Digest</span>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">X</span>
+        <span class="logo-text">Daily Digest</span>
       </a>
-      <nav class="nav-links" aria-label="主导航">
-        <a class="is-active" href="index.html">首页</a>
+      <nav class="topnav">
+        <a class="active" href="index.html">首页</a>
         <a href="https://github.com/DoTrungHuy/grok-daily-digest" target="_blank" rel="noopener">源码</a>
-        <a class="nav-cta" href="https://dotrunghuy.github.io/grok-daily-digest/" target="_blank" rel="noopener">
-          站点 <span class="cta-arrow" aria-hidden="true">↗</span>
-        </a>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <main class="page">
+    <main class="main">
 
-<section class="hero hero-home">
-  <div class="hero-inner">
-    <div class="hero-badges reveal">
-      <span class="pill-new">
-        <span class="pill-dot">Live</span>
-        <span>twitter-cli · DeepSeek · Pages</span>
-      </span>
-    </div>
-    <h1 class="hero-title reveal">每日 X 精读</h1>
-    <p class="hero-sub reveal">免费 Cookie 读 X → DeepSeek 完整总结 → 自动发布。<br class="hide-sm"/>不使用付费 X API，GitHub Actions 定时更新。</p>
-    <div class="hero-cta reveal">
-      <a class="btn btn-primary" href="2026-07-12.html">阅读最新 <span aria-hidden="true">↗</span></a>
-      <a class="btn btn-ghost" href="https://github.com/DoTrungHuy/grok-daily-digest" target="_blank" rel="noopener">查看源码</a>
-    </div>
-    <div class="hero-stats reveal">
-      <div class="stat-card liquid-glass"><span class="stat-n">2</span><span class="stat-l">期 digest</span></div>
-      <div class="stat-card liquid-glass"><span class="stat-n stat-n-sm">2026-07-12</span><span class="stat-l">最近更新</span></div>
-      <div class="stat-card liquid-glass"><span class="stat-n">08:00</span><span class="stat-l">北京时间日更</span></div>
-    </div>
-    <div class="hook-preview liquid-glass reveal">
-      <span class="section-badge">最新 HOOK</span>
-      <p>今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir 爬虫框架、Docker 自动更新工具等均有新版本或介绍。</p>
-    </div>
+
+<section class="hero">
+  <p class="eyebrow">最新一期 · 2026-07-12</p>
+  <h1 class="hero-title">每日 X 精读</h1>
+  <p class="lede">今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir 爬虫框架、Docker 自动更新工具等均有新版本或介绍。</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="2026-07-12.html">阅读最新</a>
+    <a class="btn btn-quiet" href="https://github.com/DoTrungHuy/grok-daily-digest" target="_blank" rel="noopener">源码</a>
   </div>
+  <ul class="facts">
+    <li><strong>2</strong> 期归档</li>
+    <li><strong>10</strong> 条今日</li>
+    <li><strong>08:00</strong> 北京日更</li>
+  </ul>
 </section>
 
-<section class="pipeline-strip reveal" aria-label="流水线">
-  <div class="pipe-step liquid-glass"><span class="pipe-n">01</span><div><span class="pipe-t">X Cookie 抓取</span><span class="pipe-d">twitter-cli</span></div></div>
-  <div class="pipe-arrow" aria-hidden="true">→</div>
-  <div class="pipe-step liquid-glass"><span class="pipe-n">02</span><div><span class="pipe-t">DeepSeek 策展</span><span class="pipe-d">完整精读</span></div></div>
-  <div class="pipe-arrow" aria-hidden="true">→</div>
-  <div class="pipe-step liquid-glass"><span class="pipe-n">03</span><div><span class="pipe-t">GitHub Pages</span><span class="pipe-d">自动发布</span></div></div>
-</section>
 
-<section class="list-section">
-  <div class="section-head reveal">
-    <span class="section-badge">Archive</span>
-    <h2 class="section-title">往期精读</h2>
-    <p class="section-sub">按日期归档 · 结构化条目可按类别筛选</p>
+<section class="archive">
+  <div class="section-bar">
+    <h2 class="section-title">往期</h2>
+    <p class="section-hint">按日期 · 点进可读完整条目</p>
   </div>
-  <div class="digest-grid">
+  <div class="list">
     
-<a class="digest-card liquid-glass reveal featured" href="2026-07-12.html">
-  <div class="dc-top">
-    <span class="date-pill">2026-07-12</span>
-    <span class="badge-kind">structured</span>
+<a class="row is-latest" href="2026-07-12.html">
+  <div class="row-left">
+    <time class="row-date" datetime="2026-07-12">2026-07-12</time>
+    <span class="row-kind">结构化</span>
   </div>
-  <h2 class="dc-title">今日精读</h2>
-  <p class="dc-blurb">今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir 爬虫框架、Docker 自动更新工具等均有新版本或介绍。</p>
-  <div class="dc-meta">
-    <span class="dc-stat"><strong>10</strong> 条目</span>
-    <span class="sig-pill sig-strong">强</span>
+  <div class="row-body">
+    <h2 class="row-title">今日精读</h2>
+    <p class="row-blurb">今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir…</p>
   </div>
-  <div class="dc-cats"><span class="mini-cat cat-official">大佬官方</span><span class="mini-cat cat-tool">工具更新</span></div>
-  <span class="dc-go">阅读全文 →</span>
+  <div class="row-right">
+    <span class="row-n">10<small>条</small></span>
+    <span class="sig sig-strong">强</span>
+    <span class="row-arrow" aria-hidden="true">→</span>
+  </div>
 </a>
 
 
-<a class="digest-card liquid-glass reveal " href="2026-07-11.html">
-  <div class="dc-top">
-    <span class="date-pill">2026-07-11</span>
-    <span class="badge-kind">legacy</span>
+<a class="row " href="2026-07-11.html">
+  <div class="row-left">
+    <time class="row-date" datetime="2026-07-11">2026-07-11</time>
+    <span class="row-kind">旧格式</span>
   </div>
-  <h2 class="dc-title">2026-07-11</h2>
-  <p class="dc-blurb">CS Job Tips &amp; Side Hustles</p>
-  <div class="dc-meta">
-    <span class="dc-stat"><strong>—</strong> 条目</span>
+  <div class="row-body">
+    <h2 class="row-title">2026-07-11</h2>
+    <p class="row-blurb">CS Job Tips &amp; Side Hustles</p>
+  </div>
+  <div class="row-right">
+    <span class="row-n">—<small>条</small></span>
     
+    <span class="row-arrow" aria-hidden="true">→</span>
   </div>
-  
-  <span class="dc-go">阅读全文 →</span>
 </a>
 
   </div>
 </section>
 
-  </main>
+<section class="how">
+  <div class="section-bar">
+    <h2 class="section-title">流水线</h2>
+  </div>
+  <ol class="steps">
+    <li><span class="step-n">1</span><div><strong>抓取 X</strong><span>twitter-cli + Cookie</span></div></li>
+    <li><span class="step-n">2</span><div><strong>DeepSeek 策展</strong><span>HOOK / ITEM / CLOSE</span></div></li>
+    <li><span class="step-n">3</span><div><strong>GitHub Pages</strong><span>docs 自动发布</span></div></li>
+  </ol>
+</section>
 
-  <footer class="site-footer">
-    <div class="footer-inner liquid-glass">
-      <div class="footer-row">
-        <p class="footer-copy">© 2026 X Daily Digest · Cookie → DeepSeek → Pages</p>
-        <p class="footer-gen">built 2026-07-12 08:49 UTC</p>
-      </div>
-      <p class="footer-note">不使用付费 X API · <a href="https://dotrunghuy.github.io/grok-daily-digest/">线上站点</a> · <a href="https://github.com/DoTrungHuy/grok-daily-digest">GitHub</a></p>
-    </div>
-  </footer>
+    </main>
 
-  <script src="app.js?v=20260712b" defer></script>
+    <footer class="foot">
+      <p>Cookie → DeepSeek → Pages · built 2026-07-12 08:53 UTC</p>
+      <p class="foot-links">
+        <a href="https://dotrunghuy.github.io/grok-daily-digest/">站点</a>
+        <span>·</span>
+        <a href="https://github.com/DoTrungHuy/grok-daily-digest">GitHub</a>
+      </p>
+    </footer>
+  </div>
+  <script src="app.js?v=20260712c" defer></script>
 </body>
 </html>

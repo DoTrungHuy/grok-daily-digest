@@ -147,7 +147,7 @@ docs/                     # 🌐 Pages 站点（HTML/CSS/JS）
 | **CLOSE** | 「今日只看一条」推荐 |
 | 类别筛选 | 日页上可按「大佬官方 / 工具更新…」过滤 |
 
-设计参考：[web_beauty · liquidGlassAgency](https://github.com/DoTrungHuy/web_beauty) 暗黑液态玻璃风格，适配静态日更阅读，而非落地页视频大片。
+界面风格：**Linear 系冷静暗色 + 编辑型 Newsletter**（单栏阅读、列表归档、侧栏目录），优先可读与信息密度，不做电影级落地页动效。
 
 ---
 
