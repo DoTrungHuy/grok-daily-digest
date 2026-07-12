@@ -22,7 +22,7 @@ from typing import Any, Optional
 
 import yaml
 
-from .gmail_client import project_root
+from .paths import project_root, x_raw_dir
 
 
 @dataclass
@@ -295,9 +295,7 @@ def collect_tweets(cfg: dict[str, Any] | None = None) -> dict[str, Any]:
 
 def save_raw_tweets(payload: dict[str, Any], date_slug: str | None = None) -> Path:
     day = date_slug or datetime.now().astimezone().strftime("%Y-%m-%d")
-    out_dir = project_root() / "x_raw"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / f"{day}.json"
+    path = x_raw_dir() / f"{day}.json"
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return path
 

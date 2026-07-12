@@ -1,4 +1,4 @@
-"""DeepSeek API client (OpenAI-compatible) for daily digest summarization."""
+"""DeepSeek API (OpenAI-compatible) for full daily digest text."""
 
 from __future__ import annotations
 
@@ -6,42 +6,18 @@ import json
 import os
 import urllib.error
 import urllib.request
-from typing import Any
 
+from .paths import project_root
 
 DEFAULT_BASE = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 DEFAULT_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
 
 
-SYSTEM_PROMPT = """你是资深科技与 AI 新闻策展人，面向 CS / agent 开发者。
-你会收到一组从 X（Twitter）抓取的原始推文（已含原文与链接）。
-请只根据这些材料策展，不要编造未出现的事实；材料不足就少写条目。
-
-输出必须是完整可发布的每日 digest，使用以下结构（全部写出，不要截断）：
-
-【HOOK】
-1-2 句今日总览
-
-【META】
-时间窗：过去约 24 小时
-条目数：N
-来自关注账号优先：说明是否优先了 following/指定账号
-信号强度：强/中/弱
-
-【ITEM1】
-标题：
-类别：关注动态 / 大佬官方 / 工具更新 / 行业趋势 / 中国相关 / 其他
-原文摘录：（保留原文语言，可短引）
-实用点：（对 CS/agent/工程/职业；无则写无）
-来源：@handle — 链接
-
-【ITEM2】
-...（共 6-10 条，按价值排序）
-
-【CLOSE】
-一句话：今天若只点开一条，点哪条。
-
-要求：中文说明 + 原文摘录；中立、不 hype；条目完整写完。"""
+def _system_prompt() -> str:
+    p = project_root() / "prompts" / "digest_system.md"
+    if p.is_file():
+        return p.read_text(encoding="utf-8").strip()
+    return "你是科技策展人。根据给定推文写完整中文每日 digest，勿编造。"
 
 
 def chat_complete(
@@ -55,24 +31,21 @@ def chat_complete(
 ) -> str:
     key = api_key or os.environ.get("DEEPSEEK_API_KEY") or os.environ.get("DEEPSEEK_KEY")
     if not key:
-        raise RuntimeError(
-            "缺少 DEEPSEEK_API_KEY。请在环境变量或 GitHub Secrets 中配置。"
-        )
+        raise RuntimeError("缺少 DEEPSEEK_API_KEY（环境变量或 GitHub Secrets）。")
 
     url = base_url.rstrip("/") + "/v1/chat/completions"
     body = {
         "model": model,
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": _system_prompt()},
             {"role": "user", "content": user_content},
         ],
         "temperature": temperature,
         "max_tokens": max_tokens,
     }
-    data = json.dumps(body).encode("utf-8")
     req = urllib.request.Request(
         url,
-        data=data,
+        data=json.dumps(body).encode("utf-8"),
         headers={
             "Content-Type": "application/json",
             "Authorization": f"Bearer {key}",

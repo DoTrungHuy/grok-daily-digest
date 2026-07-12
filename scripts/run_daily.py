@@ -1,177 +1,109 @@
 #!/usr/bin/env python3
 """
-Daily pipeline:
-  1) Gmail OAuth → latest Grok Tasks email (preview only by design)
-  2) Extract https://grok.com/chat/<id> from email HTML
-  3) Playwright + saved login → full chat text
-  4) Write digests/YYYY-MM-DD.md
+Daily pipeline (main entry):
 
-Setup once:
-  pip install -r requirements.txt
-  playwright install chromium
-  python scripts/grok_login.py          # browser login, save grok_auth.json
-  python scripts/run_daily.py --force
+  twitter-cli (X Cookie, free) → x_raw/
+  → DeepSeek → digests/
+  → build GitHub Pages files under docs/
+
+Usage:
+  set DEEPSEEK_API_KEY=...
+  set TWITTER_AUTH_TOKEN=...
+  set TWITTER_CT0=...
+  python scripts/run_daily.py
 """
 
 from __future__ import annotations
 
 import argparse
-import os
+import importlib.util
+import json
 import sys
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.gmail_client import (  # noqa: E402
-    DEFAULT_CLIENT_SECRET,
-    DEFAULT_TOKEN,
-    env_query,
-    fetch_latest_message,
-    get_gmail_service,
+from src.deepseek_client import summarize_tweets  # noqa: E402
+from src.digest_writer import write_digest_md  # noqa: E402
+from src.x_fetch import (  # noqa: E402
+    collect_tweets,
+    load_accounts_config,
+    save_raw_tweets,
+    tweets_to_prompt_block,
 )
-from src.grok_chat_fetcher import (  # noqa: E402
-    DEFAULT_AUTH_STATE,
-    auth_state_exists,
-    enrich_message_with_full_chat,
-)
-from src.write_digest import write_digest  # noqa: E402
+
+
+def _build_site() -> Path:
+    spec = importlib.util.spec_from_file_location(
+        "build_site", ROOT / "scripts" / "build_site.py"
+    )
+    if not spec or not spec.loader:
+        raise RuntimeError("cannot load scripts/build_site.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.build_site()
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Fetch Grok Tasks email + optional full chat, archive digest"
-    )
-    parser.add_argument("--client-secret", default=DEFAULT_CLIENT_SECRET)
-    parser.add_argument("--token", default=DEFAULT_TOKEN)
-    parser.add_argument("--query", default=None)
-    parser.add_argument("--print-only", action="store_true")
-    parser.add_argument("--preview-chars", type=int, default=2000)
-    parser.add_argument("--force", action="store_true")
-    parser.add_argument(
-        "--skip-full-chat",
-        action="store_true",
-        help="Only use email preview (no Playwright)",
-    )
-    parser.add_argument(
-        "--full-chat",
-        action="store_true",
-        default=True,
-        help="Fetch full text from grok.com/chat (default: on)",
-    )
-    parser.add_argument(
-        "--no-full-chat",
-        action="store_true",
-        help="Alias of --skip-full-chat",
-    )
-    parser.add_argument(
-        "--headed",
-        action="store_true",
-        help="Show browser when fetching chat (more reliable vs Cloudflare)",
-    )
-    parser.add_argument(
-        "--headless",
-        action="store_true",
-        help="Force headless chat fetch (may hit Cloudflare)",
-    )
-    parser.add_argument(
-        "--auth-state",
-        default=DEFAULT_AUTH_STATE,
-        help=f"Playwright storage state path (default: {DEFAULT_AUTH_STATE})",
-    )
+    parser = argparse.ArgumentParser(description="X (cookie) → DeepSeek → digests → site")
+    parser.add_argument("--skip-fetch", action="store_true")
+    parser.add_argument("--skip-summarize", action="store_true")
+    parser.add_argument("--date", default=None, help="YYYY-MM-DD")
+    parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
-    # GitHub Actions / cloud: no PC browser → never attempt Playwright full chat
-    on_ci = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
-    want_full = not (args.skip_full_chat or args.no_full_chat or on_ci)
-    if on_ci:
-        print(
-            "Running on GitHub Actions: cloud mode "
-            "(email preview + chat link only; full Grok page needs browser login)."
-        )
-    query = args.query if args.query is not None else env_query()
+    date_slug = args.date or datetime.now().astimezone().strftime("%Y-%m-%d")
+    cfg = load_accounts_config()
 
-    print("Connecting to Gmail API (readonly)...")
-    try:
-        service = get_gmail_service(
-            client_secret_path=args.client_secret,
-            token_path=args.token,
-        )
-    except FileNotFoundError as e:
-        print(e, file=sys.stderr)
-        return 1
-    except Exception as e:
-        print(f"Authorization / connection failed: {e}", file=sys.stderr)
-        return 1
-
-    print(f"Searching mail with query: {query!r}")
-    message = fetch_latest_message(service, query=query)
-    if not message:
-        print("没有找到匹配的邮件。")
-        return 2
-
-    print("=== 匹配到 Tasks 邮件（将只抓该邮件绑定的对话）===")
-    print(f"From   : {message.get('from')}")
-    print(f"Subject: {message.get('subject')}")
-    print(f"Date   : {message.get('date')}")
-    print(f"Id     : {message.get('id')}")
-    print(f"Chat   : {message.get('chat_url') or '(无 chat 链接 — 不是 digest 邮件)'}")
-    print("说明: 每天 gork-daily 会生成新的 chat id，不会复用昨天的链接。")
-
-    preview = message.get("email_preview") or message.get("body") or ""
-    print("--- email preview ---")
-    print(preview[: args.preview_chars])
-    if len(preview) > args.preview_chars:
-        print(f"... ({len(preview) - args.preview_chars} more chars)")
-
-    if want_full:
-        if not auth_state_exists(args.auth_state):
-            print(
-                f"\n[!] 未找到 Grok 登录态 {args.auth_state}。\n"
-                f"    请先运行: python scripts/grok_login.py\n"
-                f"    本次将仅归档邮件预览。",
-                file=sys.stderr,
-            )
-        else:
-            # Default headed=False in fetcher means show browser (more reliable).
-            # --headless forces headless; --headed forces visible.
-            use_headless = False
-            if args.headless:
-                use_headless = True
-            if args.headed:
-                use_headless = False
-            print("\nFetching full chat via Playwright (logged-in)...")
-            message = enrich_message_with_full_chat(
-                message,
-                auth_path=args.auth_state,
-                headless=use_headless,
-            )
-            src = message.get("content_source")
-            print(f"Content source: {src}")
-            if message.get("full_fetch_error"):
-                print(f"[!] Full fetch failed: {message['full_fetch_error']}", file=sys.stderr)
-            else:
-                full = message.get("body") or ""
-                print(f"Full text length: {len(full)} chars")
-                print("--- full text preview ---")
-                print(full[: args.preview_chars])
-                if len(full) > args.preview_chars:
-                    print(f"... ({len(full) - args.preview_chars} more chars)")
-
-    if args.print_only:
-        return 0 if message.get("content_source") == "grok_chat_full" or not want_full else 3
-
-    path, status = write_digest(message, force=args.force)
-    if status == "skipped_same_id":
-        print(f"\n已存在相同邮件 id，跳过写入: {path}")
-        print("如需用全文覆盖，请加: --force")
-    elif status == "overwritten":
-        print(f"\n已覆盖写入: {path}")
+    if args.skip_fetch:
+        raw_path = ROOT / "x_raw" / f"{date_slug}.json"
+        if not raw_path.is_file():
+            print(f"Missing {raw_path}", file=sys.stderr)
+            return 2
+        payload = json.loads(raw_path.read_text(encoding="utf-8"))
+        print(f"Loaded raw: {payload.get('count')} tweets from {raw_path}")
     else:
-        print(f"\n已写入: {path}")
-    print(f"原始备份: digests/raw/{path.stem}.json")
-    print(f"内容来源: {message.get('content_source')}")
+        print("Collecting X via twitter-cli (no paid X API)...")
+        try:
+            payload = collect_tweets(cfg)
+        except Exception as e:
+            print(f"X fetch failed: {e}", file=sys.stderr)
+            return 1
+        raw_path = save_raw_tweets(payload, date_slug)
+        print(f"Saved {raw_path} count={payload.get('count')}")
+        for err in (payload.get("errors") or [])[:15]:
+            print(f"  warn: {err}")
+
+    tweets = payload.get("tweets") or []
+    if not tweets:
+        print("No tweets; abort.", file=sys.stderr)
+        return 3
+
+    if args.skip_summarize or args.dry_run:
+        if args.dry_run:
+            print(tweets_to_prompt_block(tweets)[:2500])
+        return 0
+
+    print(f"DeepSeek summarizing {len(tweets)} tweets...")
+    try:
+        body = summarize_tweets(tweets_to_prompt_block(tweets), date_label=date_slug)
+    except Exception as e:
+        print(f"DeepSeek failed: {e}", file=sys.stderr)
+        return 4
+
+    path = write_digest_md(
+        date_slug,
+        body,
+        tweet_count=len(tweets),
+        errors=list(payload.get("errors") or []),
+    )
+    print(f"Digest: {path}")
+
+    site = _build_site()
+    print(f"Site: {site}")
     return 0
 
 
