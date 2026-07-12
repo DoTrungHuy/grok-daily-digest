@@ -94,36 +94,28 @@ grok-daily-digest/
 └── PROJECT_PLAN.md
 ```
 
-## 全文抓取（方法 1：登录一次 → 之后全自动）
+## 主路径：电脑关机 + GitHub 全自动
 
-Grok 邮件只有预览；完整正文在 `grok.com/chat/...`（需登录）。
+详见 **[docs/CLOUD_AUTO.md](./docs/CLOUD_AUTO.md)**。
 
-**你只需登录一次**（保存 cookie 到 `grok_auth.json`），之后脚本自动复用，无需每天登录：
+| 北京时间 | 自动发生的事 |
+|----------|----------------|
+| ~15:00 | Grok Tasks `gork-daily` 发邮件（每天**新**对话链接） |
+| **15:30** | GitHub Actions 读 Gmail → 写 `digests/` → push |
 
-```powershell
-# 一次性
-C:\Python\Python312\python.exe -m pip install -r requirements.txt
-C:\Python\Python312\python.exe -m playwright install chromium
-C:\Python\Python312\python.exe scripts\grok_login.py
-# 浏览器打开 → 登录 grok.com → 终端按 Enter
+仓库里会有：邮件预览 + **当天完整正文的 Grok 链接**（网页全文需登录 Grok 打开；云端无法稳定无界面抓 Grok 页）。
 
-# 之后每天（或计划任务）全自动
-C:\Python\Python312\python.exe scripts\run_daily.py --force
-```
-
-- 登录态过期时（少见，几周～几个月）再跑一次 `grok_login.py` 即可  
-- 说明：[docs/FULL_CHAT_SETUP.md](./docs/FULL_CHAT_SETUP.md)
+Secrets（只需配一次）：`GMAIL_CLIENT_SECRET_JSON`、`GMAIL_TOKEN_JSON`
 
 ## 阶段进度
 
 | 阶段 | 状态 |
 |------|------|
-| 管道：邮件预览 | ✅ |
-| 全文：登录态抓 chat | ⏳ 需本机执行一次 `grok_login.py` |
-| GitHub Actions（仅邮件） | ✅ 已配置 |
-| Pages 上线 | ❌ 未做 |
+| 云端自动归档（关机也行） | ✅ Actions 15:30 北京时间 |
+| 邮件选对 Tasks + 当天 chat 链接 | ✅ |
+| 云端写入 Grok 网页全文到 md | ❌ Grok 限制（预览 + 链接） |
+| Pages 站点上线 | ❌ 未做 |
 
-## GitHub Actions
+## 可选：本机抓 Grok 网页全文
 
-当前 Actions **只归档邮件预览**（云端没有你的 Grok 登录 cookie）。  
-**完整正文**建议本机计划任务在 15:20 跑 `run_daily.py`（用已保存的 `grok_auth.json`）。
+仅当你电脑开机且愿意维护浏览器登录时，见 [docs/FULL_CHAT_SETUP.md](./docs/FULL_CHAT_SETUP.md)。**不是**关机全自动方案的一部分。

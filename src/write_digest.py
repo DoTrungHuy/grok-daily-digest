@@ -55,7 +55,12 @@ def render_markdown(message: dict[str, Any], date_slug: str, parsed: dict[str, A
         f"- **Content source**: `{source}`",
     ]
     if message.get("chat_url"):
-        lines.append(f"- **Grok chat (full)**: {message['chat_url']}")
+        lines.append(
+            f"- **完整正文（Grok 网页，每日新对话）**: {message['chat_url']}"
+        )
+        lines.append(
+            "- **说明**: 邮件/CI 只有预览；点上方链接（需登录 Grok）可看当天 Tasks 全文"
+        )
     if message.get("full_fetch_error"):
         lines.append(f"- **Full fetch error**: {message['full_fetch_error']}")
     lines.extend(["", "---", ""])

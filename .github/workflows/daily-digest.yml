@@ -1,9 +1,11 @@
 name: Daily Grok Digest
 
+# 电脑可以关机：全部在 GitHub 云端跑。
+# gork-daily 约北京时间 15:00 发信 → 本任务 15:30 抓取并写入 digests/
 on:
   schedule:
-    # UTC 00:30 ≈ 北京时间 08:30；请按你的 Tasks 发信时间再调晚 30–90 分钟
-    - cron: "30 0 * * *"
+    # 15:30 Asia/Shanghai = 07:30 UTC
+    - cron: "30 7 * * *"
   workflow_dispatch:
 
 permissions:
@@ -22,8 +24,9 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install dependencies (Gmail only — no Playwright on CI)
+        run: |
+          pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
       - name: Write OAuth credentials from Secrets
         env:
@@ -37,10 +40,17 @@ jobs:
           printf '%s' "$GMAIL_CLIENT_SECRET_JSON" > grok_client_secret.json
           printf '%s' "$GMAIL_TOKEN_JSON" > token.json
 
-      - name: Fetch digest
+      - name: Fetch digest from Gmail (cloud-safe mode)
         env:
+          GITHUB_ACTIONS: "true"
+          # Prefer repo Variable; fallback query excludes xAI security mails
           GMAIL_QUERY: ${{ vars.GMAIL_QUERY }}
-        run: python scripts/run_daily.py
+        run: |
+          QUERY="${GMAIL_QUERY:-from:noreply@x.ai newer_than:14d -subject:\"New login\" -subject:security -subject:accessed -subject:password -subject:\"xAI account\"}"
+          echo "Using GMAIL_QUERY=$QUERY"
+          # --skip-full-chat: CI cannot use your PC browser / Grok login session
+          # --force: allow overwrite if same calendar day re-runs
+          python scripts/run_daily.py --skip-full-chat --force --query "$QUERY"
 
       - name: Commit digests if changed
         run: |

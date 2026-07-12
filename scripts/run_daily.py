@@ -16,6 +16,7 @@ Setup once:
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -81,7 +82,14 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    want_full = not (args.skip_full_chat or args.no_full_chat)
+    # GitHub Actions / cloud: no PC browser → never attempt Playwright full chat
+    on_ci = os.environ.get("GITHUB_ACTIONS", "").lower() == "true"
+    want_full = not (args.skip_full_chat or args.no_full_chat or on_ci)
+    if on_ci:
+        print(
+            "Running on GitHub Actions: cloud mode "
+            "(email preview + chat link only; full Grok page needs browser login)."
+        )
     query = args.query if args.query is not None else env_query()
 
     print("Connecting to Gmail API (readonly)...")
