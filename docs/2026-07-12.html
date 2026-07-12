@@ -8,9 +8,13 @@
   <title>Digest 2026-07-12 · X Daily Digest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
-  
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=20260712b"/>
+  <style>
+    /* critical: page never looks unstyled if external CSS is delayed */
+    html,body{margin:0;background:#05070b;color:#f4f7fb;font-family:Barlow,system-ui,sans-serif}
+    a{color:#9ec5ff;text-decoration:none}
+  </style>
 </head>
 <body class="page-digest">
   <div class="bg-orbits" aria-hidden="true">
@@ -29,8 +33,8 @@
       <nav class="nav-links" aria-label="主导航">
         <a class="" href="index.html">首页</a>
         <a href="https://github.com/DoTrungHuy/grok-daily-digest" target="_blank" rel="noopener">源码</a>
-        <a class="nav-cta liquid-glass-strong" href="https://github.com/DoTrungHuy/grok-daily-digest" target="_blank" rel="noopener">
-          Pipeline <span class="cta-arrow" aria-hidden="true">↗</span>
+        <a class="nav-cta" href="https://dotrunghuy.github.io/grok-daily-digest/" target="_blank" rel="noopener">
+          站点 <span class="cta-arrow" aria-hidden="true">↗</span>
         </a>
       </nav>
     </div>
@@ -43,16 +47,16 @@
     <a class="back-link reveal" href="index.html">← 返回列表</a>
     <div class="hero-badges reveal">
       <span class="section-badge">Daily Digest</span>
-      <span class="date-pill liquid-glass">2026-07-12</span>
-      <span class="sig-pill sig-strong liquid-glass">信号 强</span>
+      <span class="date-pill">2026-07-12</span>
+      <span class="sig-pill sig-strong">信号 强</span>
     </div>
-    <h1 class="hero-title reveal" data-blur>今日精读</h1>
+    <h1 class="hero-title reveal">今日精读</h1>
     <p class="hero-lede reveal">今日AI领域迎来密集更新：OpenAI 正式推出 GPT-Live 并重置所有用户用量限制，同时 GPT-5.6 Sol Ultra 在一小时内用64个子代理证明了50年未解的数学猜想；xAI 的 Grok 4.5 在 SWE 基准上追平了 Codex GPT-5.6，并因政治中立性引发热议。工程工具方面，LangChain 离线 RAG 方案、Elixir 爬虫框架、Docker 自动更新工具等均有新版本或介绍。</p>
     <div class="meta-chips reveal"><span class="chip chip-window "><span class="chip-k">时间窗</span><span class="chip-v">过去约 24 小时</span></span><span class="chip chip-count "><span class="chip-k">条目数</span><span class="chip-v">10</span></span><span class="chip chip-priority "><span class="chip-k">来自关注账号优先</span><span class="chip-v">是，优先了 @elonmusk 和 @OpenAI 的推文</span></span><span class="chip chip-signal sig-strong"><span class="chip-k">信号强度</span><span class="chip-v">强</span></span><span class="chip chip-tweets"><span class="chip-k">推文</span><span class="chip-v">40</span></span></div>
     <div class="hero-stats reveal">
-      <div class="stat"><span class="stat-n font-heading">10</span><span class="stat-l">条目</span></div>
-      <div class="stat"><span class="stat-n font-heading">40</span><span class="stat-l">推文素材</span></div>
-      <div class="stat"><span class="stat-n font-heading">AI</span><span class="stat-l">DeepSeek 策展</span></div>
+      <div class="stat-card liquid-glass"><span class="stat-n">10</span><span class="stat-l">条目</span></div>
+      <div class="stat-card liquid-glass"><span class="stat-n">40</span><span class="stat-l">推文素材</span></div>
+      <div class="stat-card liquid-glass"><span class="stat-n">AI</span><span class="stat-l">DeepSeek 策展</span></div>
     </div>
   </div>
 </section>
@@ -63,9 +67,7 @@
     <span class="section-badge">目录</span>
     <p class="toc-hint">跳转到条目</p>
   </div>
-  <ol class="toc-list">
-    <li><a href="#item-1"><span class="toc-n">01</span><span class="toc-t">OpenAI 全面推出 GPT-Live 并重置用量限制，承认发布存在混乱</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-2"><span class="toc-n">02</span><span class="toc-t">GPT-5.6 Sol Ultra 一小时证明 50 年未解数学猜想</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-3"><span class="toc-n">03</span><span class="toc-t">Grok 4.5 在 SWE-Atlas-QnA 基准上追平 Codex GPT-5.6</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-4"><span class="toc-n">04</span><span class="toc-t">Grok 4.5 被描述为“为真实工程构建”，擅长大型代码库</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-5"><span class="toc-n">05</span><span class="toc-t">GPT-5.6 在健康智能领域取得重大进步，Luna 版本成本降低 25 倍</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-6"><span class="toc-n">06</span><span class="toc-t">OpenAI 启动生物安全漏洞赏金计划，奖金提高至 5 万美元</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-7"><span class="toc-n">07</span><span class="toc-t">LangChain-Chatchat：完全离线的私有 RAG 流水线</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-8"><span class="toc-n">08</span><span class="toc-t">Crawly：Elixir 爬虫应用框架，支持数据挖掘与归档</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-9"><span class="toc-n">09</span><span class="toc-t">Watchtower：自动更新 Docker 容器的开源工具</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-10"><span class="toc-n">10</span><span class="toc-t">FrankenPHP：将 PHP 嵌入 Caddy 的应用服务器</span><span class="toc-c cat-tool">工具更新</span></a></li>
-  </ol>
+  <ol class="toc-list"><li><a href="#item-1"><span class="toc-n">01</span><span class="toc-t">OpenAI 全面推出 GPT-Live 并重置用量限制，承认发布存在混乱</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-2"><span class="toc-n">02</span><span class="toc-t">GPT-5.6 Sol Ultra 一小时证明 50 年未解数学猜想</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-3"><span class="toc-n">03</span><span class="toc-t">Grok 4.5 在 SWE-Atlas-QnA 基准上追平 Codex GPT-5.6</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-4"><span class="toc-n">04</span><span class="toc-t">Grok 4.5 被描述为“为真实工程构建”，擅长大型代码库</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-5"><span class="toc-n">05</span><span class="toc-t">GPT-5.6 在健康智能领域取得重大进步，Luna 版本成本降低 25 倍</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-6"><span class="toc-n">06</span><span class="toc-t">OpenAI 启动生物安全漏洞赏金计划，奖金提高至 5 万美元</span><span class="toc-c cat-official">大佬官方</span></a></li><li><a href="#item-7"><span class="toc-n">07</span><span class="toc-t">LangChain-Chatchat：完全离线的私有 RAG 流水线</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-8"><span class="toc-n">08</span><span class="toc-t">Crawly：Elixir 爬虫应用框架，支持数据挖掘与归档</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-9"><span class="toc-n">09</span><span class="toc-t">Watchtower：自动更新 Docker 容器的开源工具</span><span class="toc-c cat-tool">工具更新</span></a></li><li><a href="#item-10"><span class="toc-n">10</span><span class="toc-t">FrankenPHP：将 PHP 嵌入 Caddy 的应用服务器</span><span class="toc-c cat-tool">工具更新</span></a></li></ol>
 </nav>
 
 <div class="filter-bar reveal" role="toolbar" aria-label="按类别筛选"><button type="button" class="filter-btn is-on" data-filter="*">全部</button><button type="button" class="filter-btn" data-filter="大佬官方">大佬官方</button><button type="button" class="filter-btn" data-filter="工具更新">工具更新</button></div>
@@ -241,13 +243,13 @@ _Source: X via free cookie CLI + DeepSeek. Hosted on GitHub Pages._</p>
   <footer class="site-footer">
     <div class="footer-inner liquid-glass">
       <div class="footer-row">
-        <p class="footer-copy">© 2026 X Daily Digest · free Cookie → DeepSeek → Pages</p>
-        <p class="footer-gen">built 2026-07-12 08:45 UTC</p>
+        <p class="footer-copy">© 2026 X Daily Digest · Cookie → DeepSeek → Pages</p>
+        <p class="footer-gen">built 2026-07-12 08:49 UTC</p>
       </div>
-      <p class="footer-note">不使用付费 X API · 内容由 DeepSeek 根据抓取推文策展</p>
+      <p class="footer-note">不使用付费 X API · <a href="https://dotrunghuy.github.io/grok-daily-digest/">线上站点</a> · <a href="https://github.com/DoTrungHuy/grok-daily-digest">GitHub</a></p>
     </div>
   </footer>
 
-  <script src="app.js" defer></script>
+  <script src="app.js?v=20260712b" defer></script>
 </body>
 </html>
