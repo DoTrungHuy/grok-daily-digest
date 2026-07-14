@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="每日 X 精读 — twitter-cli + DeepSeek 自动策展"/>
+  <meta name="theme-color" content="#0a0a0b"/>
+  <title>Digest 2026-07-14 · X Daily Digest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=20260712c"/>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">X</span>
+        <span class="logo-text">Daily Digest</span>
+      </a>
+      <nav class="topnav">
+        <a class="" href="index.html">首页</a>
+        <a href="https://github.com/DoTrungHuy/X-daily-digest" target="_blank" rel="noopener">源码</a>
+      </nav>
+    </header>
+
+    <main class="main">
+
+<div class="digest-layout">
+  <div class="digest-main">
+    <div class="page-head">
+      <a class="back" href="index.html">← 返回列表</a>
+      <p class="eyebrow">Daily Digest · 2026-07-14</p>
+      <h1 class="page-title">今日精读</h1>
+      <p class="lede">今日AI圈围绕模型能力、隐私安全与开发者工具展开密集讨论：Grok 4.5 强调工程实战能力，但隐私争议持续发酵；OpenAI 连发多项更新，包括 GPT-5.6 在数学猜想上的突破、GPT-Live 全量上线，以及 ChatGPT Work 首日体验的快速修复；Claude 推出多人协作 Artifacts，TypeScript 7.0 原生提速 10 倍。</p>
+      <div class="meta-row"><span>过去约 24 小时</span><span>10 条</span><span>40 推文</span><span class="sig sig-strong">信号 强</span></div>
+    </div>
+
+    <div class="filters" role="toolbar"><button type="button" class="fbtn on" data-f="*">全部</button><button type="button" class="fbtn" data-f="大佬官方">大佬官方</button><button type="button" class="fbtn" data-f="关注动态">关注动态</button><button type="button" class="fbtn" data-f="工具更新">工具更新</button><button type="button" class="fbtn" data-f="行业趋势">行业趋势</button></div>
+    <div class="items">
+      
+<article class="item" id="item-1" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">01</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">OpenAI 发布 GPT-5.6 Sol Ultra，一小时证明 50 年未解数学猜想</h2>
+  <blockquote class="quote"><p>Yesterday, we made GPT-5.6 Sol Ultra generally available. Today, we&#x27;re sharing that it produced a proof of the 50-year-old Cycle Double Cover Conjecture using 64 subagents in just under one hour.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>展示了多智能体协作（64 subagents）在数学推理上的极限能力，对 agent 架构设计有参考价值。同时，OpenAI 也承认 ChatGPT Work 首日存在使用限制不透明、桌面端 UI 混乱等问题，并承诺下周修复。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075643450196971805" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-2" data-cat="关注动态">
+  <div class="item-meta">
+    <span class="item-idx">02</span>
+    <span class="tag tag-violet">关注动态</span>
+  </div>
+  <h2 class="item-title">Grok 4.5 发布，主打多仓库、长任务工程能力</h2>
+  <blockquote class="quote"><p>Grok 4.5 is built for real-world engineering. It excels in large codebases and handles long-running tasks that span multiple repositories, hundreds of skills, and a variety of tools.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 agent 开发者而言，Grok 4.5 的“多仓库 + 长任务”能力是当前模型竞争的关键差异化方向。但随后有用户质疑 Grok Build CLI 会上传整个 Git 仓库（含私有代码和历史），官方回应称默认关闭，且支持 /privacy 命令删除同步数据。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075192676597538995" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-3" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">03</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">Claude Artifacts 支持多人实时协作编辑</h2>
+  <blockquote class="quote"><p>Artifacts are now multiplayer: multiple people can edit the same one, together. Build with your team instead of passing versions around. Available on Team and Enterprise plans.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 agent 开发团队而言，多人协作 Artifacts 意味着可以在 Claude Code 中直接共享和迭代代码/文档，减少版本传递摩擦。同时 Claude Tag 支持在 Slack 中创建内部 Artifacts。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076789351745458624" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-4" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">04</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">TypeScript 7.0 发布，原生端口提速 10 倍</h2>
+  <blockquote class="quote"><p>TypeScript 7.0 is here, a 10x faster native port of TypeScript. Download the new VS Code extension today to get started!</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对前端/全栈开发者是重大利好，原生端口意味着编译和类型检查性能飞跃，可直接提升开发体验和 CI 速度。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076781322929139914" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-5" data-cat="行业趋势">
+  <div class="item-meta">
+    <span class="item-idx">05</span>
+    <span class="tag tag-amber">行业趋势</span>
+  </div>
+  <h2 class="item-title">OpenAI 推出 Bio Bug Bounty 计划，奖金翻倍至 $50K</h2>
+  <blockquote class="quote"><p>We’re inviting researchers with experience in AI red teaming, security, or biosecurity to try to find a universal jailbreak that can defeat our predefined biosafety challenge against OpenAI’s frontier models.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>AI 安全领域持续升温，生物安全成为前沿模型防护的重点。对安全研究员和 agent 开发者而言，了解这些挑战有助于设计更安全的系统。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075647722766614733" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-6" data-cat="行业趋势">
+  <div class="item-meta">
+    <span class="item-idx">06</span>
+    <span class="tag tag-amber">行业趋势</span>
+  </div>
+  <h2 class="item-title">NVIDIA 强调推理成本转向“每美元 token 数”，多家公司展示 Blackwell 优化成果</h2>
+  <blockquote class="quote"><p>As organizations move from AI pilots to production, infrastructure decisions have shifted from peak chip specs to cost per token: how many useful tokens they can deliver per dollar, per watt, and within required latency targets.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对部署 agent 的团队，成本指标从“峰值算力”转向“每美元 token 产出”是重要信号。Baseten、Cognition、Deep Infra、Together AI 等公司展示了在 Blackwell 上的优化案例（如 50% 更多 token/秒、30% 吞吐提升）。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076796314306617590" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-7" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">07</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">OpenAI 确认 GPT-Live 全量上线，并加倍语音使用限制</h2>
+  <blockquote class="quote"><p>GPT-Live is now fully rolled out to all ChatGPT users globally. We&#x27;re also doubling everyone&#x27;s voice usage limit for the whole weekend so you can try more of it.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>语音交互能力全面开放，对构建语音 agent 的开发者是重要参考。同时 ChatGPT 在 WhatsApp（EEA）、Kakao（韩国）、Viber 等平台可用，扩展了 agent 的部署渠道。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075768216866205786" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-8" data-cat="关注动态">
+  <div class="item-meta">
+    <span class="item-idx">08</span>
+    <span class="tag tag-violet">关注动态</span>
+  </div>
+  <h2 class="item-title">Grok Build 隐私争议持续，官方回应数据保留政策</h2>
+  <blockquote class="quote"><p>The CLI doesn&#x27;t retain data under ZDR (including headless/non-headless modes), and has since launch. Similarly, /privacy in the CLI will disable or reenable any data retention.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对使用 CLI 工具进行 agent 开发的团队，隐私和数据保留是核心关切。官方明确 ZDR（零数据保留）模式默认生效，且 /privacy 命令可控制同步。Elon Musk 补充称将彻底删除此前上传到 SpaceXAI 的所有用户数据。</p></div>
+  <div class="item-src">
+    <span class="handle">@elonmusk</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2076725943708868615" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-9" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">09</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">OpenAI 发布 GPT-5.6 系列，强调健康智能与成本优化</h2>
+  <blockquote class="quote"><p>GPT-5.6 is a major step forward for health intelligence. Across the lineup, we’re delivering stronger performance at lower cost: GPT-5.6 Luna outperforms GPT-5.5 at its highest reasoning setting while costing 25x less.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>模型成本下降 25 倍的同时性能提升，对 agent 开发者意味着更低的推理成本和更高的可用性。健康智能方向也值得关注。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2075686461693898868" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-10" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">10</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">Blume 发布 agentic-native 代码库工具，支持 Mac 并即将登陆 Linux/Windows</h2>
+  <blockquote class="quote"><p>Blume helps you build an agentic-native codebase with consistent and correct context. Fewer mistakes, fewer headaches.</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 agent 开发者而言，构建“agentic-native”代码库是新兴方向，Blume 试图解决 agent 上下文一致性问题。跨平台支持即将到来。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2059967680980128062" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+    </div>
+    
+<aside class="close-box">
+  <p class="close-k">今日只看一条</p>
+  <p class="close-v">今天若只点开一条，点 OpenAI 关于 GPT-5.6 Sol Ultra 证明 Cycle Double Cover 猜想的推文，它展示了多智能体协作在数学推理上的极限，同时附带了 ChatGPT Work 首日体验的坦诚复盘——两者共同勾勒出当前 AI 能力的边界与产品落地的真实挑战。
+
+---
+
+_Source: X via free cookie CLI + DeepSeek. Hosted on GitHub Pages._</p>
+</aside>
+
+  </div>
+
+  <aside class="toc-side" aria-label="目录">
+    <p class="toc-label">本篇目录</p>
+    <nav class="toc"><a href="#item-1" class="toc-a"><span class="toc-i">01</span><span class="toc-t">OpenAI 发布 GPT-5.6 Sol Ultra，一小时证明 50 年未解数学猜想</span></a><a href="#item-2" class="toc-a"><span class="toc-i">02</span><span class="toc-t">Grok 4.5 发布，主打多仓库、长任务工程能力</span></a><a href="#item-3" class="toc-a"><span class="toc-i">03</span><span class="toc-t">Claude Artifacts 支持多人实时协作编辑</span></a><a href="#item-4" class="toc-a"><span class="toc-i">04</span><span class="toc-t">TypeScript 7.0 发布，原生端口提速 10 倍</span></a><a href="#item-5" class="toc-a"><span class="toc-i">05</span><span class="toc-t">OpenAI 推出 Bio Bug Bounty 计划，奖金翻倍至 $50K</span></a><a href="#item-6" class="toc-a"><span class="toc-i">06</span><span class="toc-t">NVIDIA 强调推理成本转向“每美元 token 数”，多家公司展示 Blackwell 优化成果</span></a><a href="#item-7" class="toc-a"><span class="toc-i">07</span><span class="toc-t">OpenAI 确认 GPT-Live 全量上线，并加倍语音使用限制</span></a><a href="#item-8" class="toc-a"><span class="toc-i">08</span><span class="toc-t">Grok Build 隐私争议持续，官方回应数据保留政策</span></a><a href="#item-9" class="toc-a"><span class="toc-i">09</span><span class="toc-t">OpenAI 发布 GPT-5.6 系列，强调健康智能与成本优化</span></a><a href="#item-10" class="toc-a"><span class="toc-i">10</span><span class="toc-t">Blume 发布 agentic-native 代码库工具，支持 Mac 并即将登陆 Linux/Windows</span></a></nav>
+  </aside>
+</div>
+
+    </main>
+
+    <footer class="foot">
+      <p>Cookie → DeepSeek → Pages · built 2026-07-14 03:33 UTC</p>
+      <p class="foot-links">
+        <a href="https://dotrunghuy.github.io/X-daily-digest/">站点</a>
+        <span>·</span>
+        <a href="https://github.com/DoTrungHuy/X-daily-digest">GitHub</a>
+      </p>
+    </footer>
+  </div>
+  <script src="app.js?v=20260712c" defer></script>
+</body>
+</html>
