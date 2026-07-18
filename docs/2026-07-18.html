@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="每日 X 精读 — twitter-cli + DeepSeek 自动策展"/>
+  <meta name="theme-color" content="#0a0a0b"/>
+  <title>Digest 2026-07-18 · X Daily Digest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=20260712c"/>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">X</span>
+        <span class="logo-text">Daily Digest</span>
+      </a>
+      <nav class="topnav">
+        <a class="" href="index.html">首页</a>
+        <a href="https://github.com/DoTrungHuy/X-daily-digest" target="_blank" rel="noopener">源码</a>
+      </nav>
+    </header>
+
+    <main class="main">
+
+<div class="digest-layout">
+  <div class="digest-main">
+    <div class="page-head">
+      <a class="back" href="index.html">← 返回列表</a>
+      <p class="eyebrow">Daily Digest · 2026-07-18</p>
+      <h1 class="page-title">今日精读</h1>
+      <p class="lede">今日AI圈迎来多款重磅模型更新与工具发布：OpenAI 重置了所有付费用户的 Codex 和 ChatGPT 使用限制，并推出 GPT-5.6 Sol 在网络安全领域创下新 SOTA；Grok 4.5 上线 Grok Build，主打极低 token 消耗与成本优势；Claude Fable 5 将于7月20日纳入 Max 和 Team Premium 计划。同时，开源本地 AI 助手 June 发布，LLM Universe 教程上线。</p>
+      <div class="meta-row"><span>过去约 24 小时</span><span>10 条</span><span>40 推文</span><span class="sig sig-strong">信号 强</span></div>
+    </div>
+
+    <div class="filters" role="toolbar"><button type="button" class="fbtn on" data-f="*">全部</button><button type="button" class="fbtn" data-f="关注动态">关注动态</button><button type="button" class="fbtn" data-f="工具更新">工具更新</button><button type="button" class="fbtn" data-f="大佬官方">大佬官方</button><button type="button" class="fbtn" data-f="行业趋势">行业趋势</button></div>
+    <div class="items">
+      
+<article class="item" id="item-1" data-cat="关注动态">
+  <div class="item-meta">
+    <span class="item-idx">01</span>
+    <span class="tag tag-violet">关注动态</span>
+  </div>
+  <h2 class="item-title">OpenAI 重置所有付费用户 Codex 和 ChatGPT 使用限制</h2>
+  <blockquote class="quote"><p>“Oops... I did it again. Enjoy reset usage limits for all paid users for Codex and ChatGPT Work. Super grateful for an incredible team who is iterating at lightspeed and keeping the infra up as we scale faster than ever.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 CS/agent 开发者而言，这意味着 Codex 和 ChatGPT Work 的配额已全部刷新，可立即用于高强度开发与调试，无需担心限流。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078320950488297917" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-2" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">02</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">GPT-5.6 Sol 在网络安全领域创下新 SOTA</h2>
+  <blockquote class="quote"><p>“GPT-5.6 Sol sets a new state of the art in cybersecurity on “The Last Ones” cyber range. We’re already seeing that capability translate into defensive outcomes: helping teams find, validate, and fix vulnerabilities in real-world code. Put it to work with Codex Security.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>开发者可利用 Codex Security 插件（已发布安装指南）对代码库进行自动化安全扫描，发现并修复漏洞，提升代码安全性。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078243667081617826" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-3" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">03</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">Grok 4.5 上线 Grok Build，以极低 token 消耗提供强编码性能</h2>
+  <blockquote class="quote"><p>“Build faster and spend less. Grok 4.5 is now in Grok Build, delivering strong coding performance with far fewer tokens per task.” 另有评论：“Grok 4.5 is only 1.5T parameters. Kimi K3 is 2.8T... and costs 3× more per task. SpaceXAI cracked intelligence efficiency.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对于需要频繁调用 LLM 进行编码的开发者，Grok 4.5 的 token 效率优势可显著降低 API 成本，适合预算敏感的项目。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078064678899458407" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-4" data-cat="大佬官方">
+  <div class="item-meta">
+    <span class="item-idx">04</span>
+    <span class="tag tag-blue">大佬官方</span>
+  </div>
+  <h2 class="item-title">Grok TTS 登顶 The Humanness Index，成本仅为竞品 1/7</h2>
+  <blockquote class="quote"><p>“Grok TTS just took the top spot on The Humanness Index. It scored 94 for humanness....even the cost difference is insane: Grok TTS: $15 vs Eleven v3: $100. Grok delivers the higher human-likeness score while costing nearly 7× less.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对构建语音交互 agent 的开发者，Grok TTS 提供了高拟真度且低成本的 TTS 方案，延迟仅 460 ms，适合实时对话场景。</p></div>
+  <div class="item-src">
+    <span class="handle">@elonmusk</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078291115858624574" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-5" data-cat="关注动态">
+  <div class="item-meta">
+    <span class="item-idx">05</span>
+    <span class="tag tag-violet">关注动态</span>
+  </div>
+  <h2 class="item-title">Claude Fable 5 将于7月20日纳入 Max 和 Team Premium 计划</h2>
+  <blockquote class="quote"><p>“Beginning July 20, Claude Fable 5 will be included in all Max and Team Premium plans, at 50% of limits. Pro and Team Standard users will continue to have access to Fable via usage credits, and will receive a one-time $100 credit.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>开发者需关注订阅计划变更：Max/Team Premium 用户将获得稳定的 Fable 5 访问配额（50%），而 Pro/Team Standard 用户需通过使用积分访问，并获 $100 补偿。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078302415804379218" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-6" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">06</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">OpenAI 推出 GPT-Red 内部自动化红队工具，提升模型抗提示注入能力</h2>
+  <blockquote class="quote"><p>“Introducing GPT-Red. An internal automated red teamer on a mission to find our models’ prompt injection vulnerabilities at scale.” 以及 “Training against GPT‑Red makes GPT‑5.6 substantially more resilient... GPT‑5.6 Sol proved to be our most robust model against prompt injections to date, with 6× fewer failures.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 agent 开发者而言，GPT-5.6 Sol 的抗注入能力大幅提升，可减少因恶意提示导致的安全风险，适合构建面向用户的 agent 应用。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2077446718728425686" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-7" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">07</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">ChatGPT 桌面应用更新：侧边栏显示历史记录与项目，同步跨平台</h2>
+  <blockquote class="quote"><p>“ChatGPT conversation history and projects are now visible in the sidebar. Also, your Chat and Work history now sync across web, mobile, and desktop. Local tasks still stay on your computer. You can now easily switch between Chat and Work modes inside ChatGPT on desktop.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对日常使用 ChatGPT 进行开发的工程师，此更新改善了工作流连续性，历史记录与项目跨设备同步，减少上下文丢失。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2077928427936710901" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-8" data-cat="工具更新">
+  <div class="item-meta">
+    <span class="item-idx">08</span>
+    <span class="tag tag-green">工具更新</span>
+  </div>
+  <h2 class="item-title">开源本地 AI 助手 June 发布：支持 agent、语音、会议记录，数据本地化</h2>
+  <blockquote class="quote"><p>“Meet June, private AI on your Mac. June bundles it all in one: An agent + chat, Voice dictation into any app, Automated meeting notes, Private OSS &amp; anonymized frontier models. Files, context, and data stay yours. Open source. MIT.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对注重隐私的开发者，June 提供了完全本地化的 AI 助手方案，支持 agent 和语音功能，适合在 Mac 上构建个人或团队工具。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2071956798861353099" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-9" data-cat="行业趋势">
+  <div class="item-meta">
+    <span class="item-idx">09</span>
+    <span class="tag tag-amber">行业趋势</span>
+  </div>
+  <h2 class="item-title">LLM Universe 教程上线：从零构建 RAG 知识库助手</h2>
+  <blockquote class="quote"><p>“LLM Universe is a hands-on tutorial that teaches LLM application development by guiding you through building a personal knowledge base assistant. Covers calling multiple LLM APIs with unified wrappers, document loading, vector database setup, complete RAG application with LangChain and Streamlit deployment.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对刚入门 LLM 开发的 CS 学生或工程师，此教程提供了完整的 RAG 应用构建路径，涵盖 API 调用、向量数据库、LangChain 和部署，适合自学。</p></div>
+  <div class="item-src">
+    <span class="handle">@unknown</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078276070634393696" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+
+<article class="item" id="item-10" data-cat="关注动态">
+  <div class="item-meta">
+    <span class="item-idx">10</span>
+    <span class="tag tag-violet">关注动态</span>
+  </div>
+  <h2 class="item-title">OpenAI 发布 ChatGPT Sites 功能，鼓励用户创建并分享站点</h2>
+  <blockquote class="quote"><p>“Create something worth sharing with ChatGPT sites. Share your site with us for a chance to win a limited-edition swag box, including the sold out ChatGPT basketball. Giveaway closes this Sunday at 11:59PT.” 以及 “With ChatGPT sites you can just: Build a game. Launch your small business. Make an OOO handoff. Show off your photography. Publish your research. Create a team hub.”</p></blockquote>
+  <div class="take"><span class="take-k">实用点</span><p>对 agent 开发者，ChatGPT Sites 提供了一种快速发布 AI 驱动的 Web 应用的方式，可尝试构建小型工具或展示项目，并有机会获得官方奖励。</p></div>
+  <div class="item-src">
+    <span class="handle">@OpenAI</span>
+    <span class="src-links"><a class="src" href="https://x.com/i/web/status/2078264521748312302" target="_blank" rel="noopener">原文1</a></span>
+  </div>
+</article>
+
+    </div>
+    
+<aside class="close-box">
+  <p class="close-k">今日只看一条</p>
+  <p class="close-v">今天若只点开一条，点 OpenAI 关于 GPT-5.6 Sol 在网络安全领域创 SOTA 并推出 Codex Security 插件的推文，这对 agent 安全开发至关重要。
+
+---
+
+_Source: X via free cookie CLI + DeepSeek. Hosted on GitHub Pages._</p>
+</aside>
+
+  </div>
+
+  <aside class="toc-side" aria-label="目录">
+    <p class="toc-label">本篇目录</p>
+    <nav class="toc"><a href="#item-1" class="toc-a"><span class="toc-i">01</span><span class="toc-t">OpenAI 重置所有付费用户 Codex 和 ChatGPT 使用限制</span></a><a href="#item-2" class="toc-a"><span class="toc-i">02</span><span class="toc-t">GPT-5.6 Sol 在网络安全领域创下新 SOTA</span></a><a href="#item-3" class="toc-a"><span class="toc-i">03</span><span class="toc-t">Grok 4.5 上线 Grok Build，以极低 token 消耗提供强编码性能</span></a><a href="#item-4" class="toc-a"><span class="toc-i">04</span><span class="toc-t">Grok TTS 登顶 The Humanness Index，成本仅为竞品 1/7</span></a><a href="#item-5" class="toc-a"><span class="toc-i">05</span><span class="toc-t">Claude Fable 5 将于7月20日纳入 Max 和 Team Premium 计划</span></a><a href="#item-6" class="toc-a"><span class="toc-i">06</span><span class="toc-t">OpenAI 推出 GPT-Red 内部自动化红队工具，提升模型抗提示注入能力</span></a><a href="#item-7" class="toc-a"><span class="toc-i">07</span><span class="toc-t">ChatGPT 桌面应用更新：侧边栏显示历史记录与项目，同步跨平台</span></a><a href="#item-8" class="toc-a"><span class="toc-i">08</span><span class="toc-t">开源本地 AI 助手 June 发布：支持 agent、语音、会议记录，数据本地化</span></a><a href="#item-9" class="toc-a"><span class="toc-i">09</span><span class="toc-t">LLM Universe 教程上线：从零构建 RAG 知识库助手</span></a><a href="#item-10" class="toc-a"><span class="toc-i">10</span><span class="toc-t">OpenAI 发布 ChatGPT Sites 功能，鼓励用户创建并分享站点</span></a></nav>
+  </aside>
+</div>
+
+    </main>
+
+    <footer class="foot">
+      <p>Cookie → DeepSeek → Pages · built 2026-07-18 03:31 UTC</p>
+      <p class="foot-links">
+        <a href="https://dotrunghuy.github.io/X-daily-digest/">站点</a>
+        <span>·</span>
+        <a href="https://github.com/DoTrungHuy/X-daily-digest">GitHub</a>
+      </p>
+    </footer>
+  </div>
+  <script src="app.js?v=20260712c" defer></script>
+</body>
+</html>
